@@ -370,6 +370,7 @@
     <Content Include="bin\Debug\XrmToolBox.Extensibility.dll" />
     <Content Include="bin\Debug\XrmToolBox.ToolLibrary.dll" />
     <Content Include="Images\delete.png" />
+    <Content Include="Images\Dependency.png" />
     <Content Include="Images\filter.png" />
     <Content Include="Images\PluginProfile.gif" />
     <Content Include="Images\PluginProfilerSelected.gif" />

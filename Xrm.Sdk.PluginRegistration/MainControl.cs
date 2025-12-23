@@ -2343,15 +2343,29 @@ namespace Xrm.Sdk.PluginRegistration
 
         private void ShowSelectedAssemblyDependencies()
         {
-            if (trvPlugins.SelectedNode == null || trvPlugins.SelectedNode.NodeType != CrmTreeNodeType.Assembly)
+            if (trvPlugins.SelectedNode == null)
             {
-                MessageBox.Show("Please select a plugin assembly to view its dependencies.", "Show Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please select a plugin assembly, plugin, or step to view its dependencies.", "Show Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            var assembly = (Wrappers.CrmPluginAssembly)trvPlugins.SelectedNode;
-            using (var dlg = new Forms.DependenciesDialog(assembly))
+            switch (trvPlugins.SelectedNode.NodeType)
             {
-                dlg.ShowDialog(this);
+                case CrmTreeNodeType.Assembly:
+                    using (var dlg = new Forms.DependenciesDialog((Wrappers.CrmPluginAssembly)trvPlugins.SelectedNode))
+                        dlg.ShowDialog(this);
+                    break;
+                case CrmTreeNodeType.Plugin:
+                case CrmTreeNodeType.WorkflowActivity:
+                    using (var dlg = new Forms.DependenciesDialog((Wrappers.CrmPlugin)trvPlugins.SelectedNode))
+                        dlg.ShowDialog(this);
+                    break;
+                case CrmTreeNodeType.Step:
+                    using (var dlg = new Forms.DependenciesDialog((Wrappers.CrmPluginStep)trvPlugins.SelectedNode))
+                        dlg.ShowDialog(this);
+                    break;
+                default:
+                    MessageBox.Show("Please select a plugin assembly, plugin, or step to view its dependencies.", "Show Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
             }
         }
 

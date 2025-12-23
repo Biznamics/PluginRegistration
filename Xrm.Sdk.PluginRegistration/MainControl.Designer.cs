@@ -120,64 +120,64 @@ namespace Xrm.Sdk.PluginRegistration
             this.tsmiCheckActiveLayer,
             this.mnuContextNodeShowDependencies});
             this.mnuContextNode.Name = "mnuContextNode";
-            this.mnuContextNode.Size = new System.Drawing.Size(198, 266);
+            this.mnuContextNode.Size = new System.Drawing.Size(206, 352);
             // 
             // mnuContextNodeAssemblyRegister
             // 
             this.mnuContextNodeAssemblyRegister.Name = "mnuContextNodeAssemblyRegister";
-            this.mnuContextNodeAssemblyRegister.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeAssemblyRegister.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeAssemblyRegister.Text = "Register New &Assembly";
             this.mnuContextNodeAssemblyRegister.Click += new System.EventHandler(this.toolAssemblyRegister_Click);
             // 
             // mnuContextNodeStepRegister
             // 
             this.mnuContextNodeStepRegister.Name = "mnuContextNodeStepRegister";
-            this.mnuContextNodeStepRegister.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeStepRegister.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeStepRegister.Text = "Register New S&tep";
             this.mnuContextNodeStepRegister.Click += new System.EventHandler(this.toolStepRegister_Click);
             // 
             // mnuContextNodeImageRegister
             // 
             this.mnuContextNodeImageRegister.Name = "mnuContextNodeImageRegister";
-            this.mnuContextNodeImageRegister.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeImageRegister.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeImageRegister.Text = "Register New &Image";
             this.mnuContextNodeImageRegister.Click += new System.EventHandler(this.toolImageRegister_Click);
             // 
             // mnuContextNodeSep1
             // 
             this.mnuContextNodeSep1.Name = "mnuContextNodeSep1";
-            this.mnuContextNodeSep1.Size = new System.Drawing.Size(194, 6);
+            this.mnuContextNodeSep1.Size = new System.Drawing.Size(202, 6);
             // 
             // mnuContextNodeSearch
             // 
             this.mnuContextNodeSearch.Name = "mnuContextNodeSearch";
-            this.mnuContextNodeSearch.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeSearch.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeSearch.Text = "&Search";
             this.mnuContextNodeSearch.Click += new System.EventHandler(this.toolSearch_Click);
             // 
             // mnuContextNodeRefresh
             // 
             this.mnuContextNodeRefresh.Name = "mnuContextNodeRefresh";
-            this.mnuContextNodeRefresh.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeRefresh.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeRefresh.Text = "Re&fresh";
             this.mnuContextNodeRefresh.Click += new System.EventHandler(this.toolRefresh_Click);
             // 
             // mnuContextNodeSep2
             // 
             this.mnuContextNodeSep2.Name = "mnuContextNodeSep2";
-            this.mnuContextNodeSep2.Size = new System.Drawing.Size(194, 6);
+            this.mnuContextNodeSep2.Size = new System.Drawing.Size(202, 6);
             // 
             // mnuContextNodeEnable
             // 
             this.mnuContextNodeEnable.Name = "mnuContextNodeEnable";
-            this.mnuContextNodeEnable.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeEnable.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeEnable.Text = "&Disable";
             this.mnuContextNodeEnable.Click += new System.EventHandler(this.toolEnable_Click);
             // 
             // mnuContextNodeUpdate
             // 
             this.mnuContextNodeUpdate.Name = "mnuContextNodeUpdate";
-            this.mnuContextNodeUpdate.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeUpdate.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeUpdate.Text = "&Update";
             this.mnuContextNodeUpdate.Click += new System.EventHandler(this.toolUpdate_Click);
             // 
@@ -185,33 +185,34 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.mnuContextNodeUnregister.Name = "mnuContextNodeUnregister";
             this.mnuContextNodeUnregister.ShortcutKeyDisplayString = "Delete";
-            this.mnuContextNodeUnregister.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeUnregister.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeUnregister.Text = "U&nregister";
             this.mnuContextNodeUnregister.Click += new System.EventHandler(this.toolUnregister_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(194, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(202, 6);
             // 
             // tsmiAddToSolution
             // 
             this.tsmiAddToSolution.Name = "tsmiAddToSolution";
-            this.tsmiAddToSolution.Size = new System.Drawing.Size(197, 22);
+            this.tsmiAddToSolution.Size = new System.Drawing.Size(205, 30);
             this.tsmiAddToSolution.Text = "Add to solution";
             this.tsmiAddToSolution.Click += new System.EventHandler(this.tsmiAddToSolution_Click);
             // 
             // tsmiCheckActiveLayer
             // 
             this.tsmiCheckActiveLayer.Name = "tsmiCheckActiveLayer";
-            this.tsmiCheckActiveLayer.Size = new System.Drawing.Size(197, 22);
+            this.tsmiCheckActiveLayer.Size = new System.Drawing.Size(205, 30);
             this.tsmiCheckActiveLayer.Text = "Check active layer";
             this.tsmiCheckActiveLayer.Click += new System.EventHandler(this.tsmiCheckActiveLayer_Click);
             // 
             // mnuContextNodeShowDependencies
             // 
+            this.mnuContextNodeShowDependencies.Image = global::Xrm.Sdk.PluginRegistration.Resources.Dependency;
             this.mnuContextNodeShowDependencies.Name = "mnuContextNodeShowDependencies";
-            this.mnuContextNodeShowDependencies.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeShowDependencies.Size = new System.Drawing.Size(205, 30);
             this.mnuContextNodeShowDependencies.Text = "Show Dependencies";
             this.mnuContextNodeShowDependencies.Click += new System.EventHandler(this.mnuContextNodeShowDependencies_Click);
             // 
@@ -331,7 +332,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
             this.toolBar.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolBar.Size = new System.Drawing.Size(851, 25);
+            this.toolBar.Size = new System.Drawing.Size(851, 31);
             this.toolBar.TabIndex = 9;
             this.toolBar.Text = "toolStrip1";
             // 
@@ -346,7 +347,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolWebHookRegister});
             this.toolRegister.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolRegister.Name = "toolRegister";
-            this.toolRegister.Size = new System.Drawing.Size(62, 22);
+            this.toolRegister.Size = new System.Drawing.Size(62, 28);
             this.toolRegister.Text = "&Register";
             // 
             // toolPackageRegister
@@ -407,7 +408,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolViewMessage});
             this.toolView.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolView.Name = "toolView";
-            this.toolView.Size = new System.Drawing.Size(45, 22);
+            this.toolView.Size = new System.Drawing.Size(45, 28);
             this.toolView.Text = "View";
             // 
             // toolViewPackage
@@ -445,14 +446,14 @@ namespace Xrm.Sdk.PluginRegistration
             // toolProfilerSep
             // 
             this.toolProfilerSep.Name = "toolProfilerSep";
-            this.toolProfilerSep.Size = new System.Drawing.Size(6, 25);
+            this.toolProfilerSep.Size = new System.Drawing.Size(6, 31);
             this.toolProfilerSep.Visible = false;
             // 
             // toolUpdate
             // 
             this.toolUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolUpdate.Name = "toolUpdate";
-            this.toolUpdate.Size = new System.Drawing.Size(49, 22);
+            this.toolUpdate.Size = new System.Drawing.Size(49, 28);
             this.toolUpdate.Text = "&Update";
             this.toolUpdate.Visible = false;
             this.toolUpdate.Click += new System.EventHandler(this.toolUpdate_Click);
@@ -461,7 +462,7 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolEnable.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolEnable.Name = "toolEnable";
-            this.toolEnable.Size = new System.Drawing.Size(49, 22);
+            this.toolEnable.Size = new System.Drawing.Size(49, 28);
             this.toolEnable.Text = "&Disable";
             this.toolEnable.Visible = false;
             this.toolEnable.Click += new System.EventHandler(this.toolEnable_Click);
@@ -470,7 +471,7 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolUnregister.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolUnregister.Name = "toolUnregister";
-            this.toolUnregister.Size = new System.Drawing.Size(65, 22);
+            this.toolUnregister.Size = new System.Drawing.Size(65, 28);
             this.toolUnregister.Text = "U&nregister";
             this.toolUnregister.Click += new System.EventHandler(this.toolUnregister_Click);
             // 
@@ -478,29 +479,30 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolAddToSolution.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolAddToSolution.Name = "toolAddToSolution";
-            this.toolAddToSolution.Size = new System.Drawing.Size(95, 22);
+            this.toolAddToSolution.Size = new System.Drawing.Size(95, 28);
             this.toolAddToSolution.Text = "Add To Solution";
             this.toolAddToSolution.Visible = false;
             this.toolAddToSolution.Click += new System.EventHandler(this.tsmiAddToSolution_Click);
             // 
             // toolShowDependencies
             // 
+            this.toolShowDependencies.Image = global::Xrm.Sdk.PluginRegistration.Resources.Dependency;
             this.toolShowDependencies.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolShowDependencies.Name = "toolShowDependencies";
-            this.toolShowDependencies.Size = new System.Drawing.Size(120, 22);
+            this.toolShowDependencies.Size = new System.Drawing.Size(141, 28);
             this.toolShowDependencies.Text = "Show Dependencies";
             this.toolShowDependencies.Click += new System.EventHandler(this.toolShowDependencies_Click);
             // 
             // toolCommonSep2
             // 
             this.toolCommonSep2.Name = "toolCommonSep2";
-            this.toolCommonSep2.Size = new System.Drawing.Size(6, 25);
+            this.toolCommonSep2.Size = new System.Drawing.Size(6, 31);
             // 
             // toolRefresh
             // 
             this.toolRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolRefresh.Name = "toolRefresh";
-            this.toolRefresh.Size = new System.Drawing.Size(50, 22);
+            this.toolRefresh.Size = new System.Drawing.Size(50, 28);
             this.toolRefresh.Text = "Re&fresh";
             this.toolRefresh.Click += new System.EventHandler(this.toolRefresh_Click);
             // 
@@ -508,20 +510,20 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolSearch.Name = "toolSearch";
-            this.toolSearch.Size = new System.Drawing.Size(46, 22);
+            this.toolSearch.Size = new System.Drawing.Size(46, 28);
             this.toolSearch.Text = "&Search";
             this.toolSearch.Click += new System.EventHandler(this.toolSearch_Click);
             // 
             // toolCommonSep3
             // 
             this.toolCommonSep3.Name = "toolCommonSep3";
-            this.toolCommonSep3.Size = new System.Drawing.Size(6, 25);
+            this.toolCommonSep3.Size = new System.Drawing.Size(6, 31);
             // 
             // toolExport
             // 
             this.toolExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolExport.Name = "toolExport";
-            this.toolExport.Size = new System.Drawing.Size(45, 22);
+            this.toolExport.Size = new System.Drawing.Size(45, 28);
             this.toolExport.Text = "E&xport";
             this.toolExport.ToolTipText = "Export to Excel";
             this.toolExport.Click += new System.EventHandler(this.toolExport_Click);
@@ -529,13 +531,13 @@ namespace Xrm.Sdk.PluginRegistration
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // toolClose
             // 
             this.toolClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolClose.Name = "toolClose";
-            this.toolClose.Size = new System.Drawing.Size(40, 22);
+            this.toolClose.Size = new System.Drawing.Size(40, 28);
             this.toolClose.Text = "Clos&e";
             this.toolClose.ToolTipText = "Close Tool (Ctrl+F4)";
             this.toolClose.Click += new System.EventHandler(this.toolClose_Click);
@@ -543,13 +545,13 @@ namespace Xrm.Sdk.PluginRegistration
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
             // tsbFilterAssemblies
             // 
             this.tsbFilterAssemblies.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFilterAssemblies.Name = "tsbFilterAssemblies";
-            this.tsbFilterAssemblies.Size = new System.Drawing.Size(99, 22);
+            this.tsbFilterAssemblies.Size = new System.Drawing.Size(99, 28);
             this.tsbFilterAssemblies.Text = "Filter Assemblies";
             this.tsbFilterAssemblies.ToolTipText = "No filter(s) set";
             this.tsbFilterAssemblies.Click += new System.EventHandler(this.tsbFilterAssemblies_Click);
