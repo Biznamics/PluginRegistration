@@ -43,6 +43,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiAddToSolution = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCheckActiveLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuContextNodeShowDependencies = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextGeneral = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuContextGeneralAssemblyRegister = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextGeneralStepRegister = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +71,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolEnable = new System.Windows.Forms.ToolStripButton();
             this.toolUnregister = new System.Windows.Forms.ToolStripButton();
             this.toolAddToSolution = new System.Windows.Forms.ToolStripButton();
+            this.toolShowDependencies = new System.Windows.Forms.ToolStripButton();
             this.toolCommonSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolSearch = new System.Windows.Forms.ToolStripButton();
@@ -115,9 +117,10 @@ namespace Xrm.Sdk.PluginRegistration
             this.mnuContextNodeUnregister,
             this.toolStripSeparator3,
             this.tsmiAddToSolution,
-            this.tsmiCheckActiveLayer});
+            this.tsmiCheckActiveLayer,
+            this.mnuContextNodeShowDependencies});
             this.mnuContextNode.Name = "mnuContextNode";
-            this.mnuContextNode.Size = new System.Drawing.Size(198, 242);
+            this.mnuContextNode.Size = new System.Drawing.Size(198, 266);
             // 
             // mnuContextNodeAssemblyRegister
             // 
@@ -204,6 +207,13 @@ namespace Xrm.Sdk.PluginRegistration
             this.tsmiCheckActiveLayer.Size = new System.Drawing.Size(197, 22);
             this.tsmiCheckActiveLayer.Text = "Check active layer";
             this.tsmiCheckActiveLayer.Click += new System.EventHandler(this.tsmiCheckActiveLayer_Click);
+            // 
+            // mnuContextNodeShowDependencies
+            // 
+            this.mnuContextNodeShowDependencies.Name = "mnuContextNodeShowDependencies";
+            this.mnuContextNodeShowDependencies.Size = new System.Drawing.Size(197, 22);
+            this.mnuContextNodeShowDependencies.Text = "Show Dependencies";
+            this.mnuContextNodeShowDependencies.Click += new System.EventHandler(this.mnuContextNodeShowDependencies_Click);
             // 
             // mnuContextGeneral
             // 
@@ -308,6 +318,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolEnable,
             this.toolUnregister,
             this.toolAddToSolution,
+            this.toolShowDependencies,
             this.toolCommonSep2,
             this.toolRefresh,
             this.toolSearch,
@@ -471,6 +482,14 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolAddToSolution.Text = "Add To Solution";
             this.toolAddToSolution.Visible = false;
             this.toolAddToSolution.Click += new System.EventHandler(this.tsmiAddToSolution_Click);
+            // 
+            // toolShowDependencies
+            // 
+            this.toolShowDependencies.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolShowDependencies.Name = "toolShowDependencies";
+            this.toolShowDependencies.Size = new System.Drawing.Size(120, 22);
+            this.toolShowDependencies.Text = "Show Dependencies";
+            this.toolShowDependencies.Click += new System.EventHandler(this.toolShowDependencies_Click);
             // 
             // toolCommonSep2
             // 
@@ -714,5 +733,7 @@ namespace Xrm.Sdk.PluginRegistration
         private System.Windows.Forms.ToolStripMenuItem toolPackageRegister;
         private System.Windows.Forms.ToolStripMenuItem tsmiCheckActiveLayer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem mnuContextNodeShowDependencies;
+        private System.Windows.Forms.ToolStripButton toolShowDependencies;
     }
 }

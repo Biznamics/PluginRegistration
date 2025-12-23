@@ -2331,6 +2331,30 @@ namespace Xrm.Sdk.PluginRegistration
             mnuContextNodeEnable.Image = toolEnable.Image;
         }
 
+        private void mnuContextNodeShowDependencies_Click(object sender, EventArgs e)
+        {
+            ShowSelectedAssemblyDependencies();
+        }
+
+        private void toolShowDependencies_Click(object sender, EventArgs e)
+        {
+            ShowSelectedAssemblyDependencies();
+        }
+
+        private void ShowSelectedAssemblyDependencies()
+        {
+            if (trvPlugins.SelectedNode == null || trvPlugins.SelectedNode.NodeType != CrmTreeNodeType.Assembly)
+            {
+                MessageBox.Show("Please select a plugin assembly to view its dependencies.", "Show Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var assembly = (Wrappers.CrmPluginAssembly)trvPlugins.SelectedNode;
+            using (var dlg = new Forms.DependenciesDialog(assembly))
+            {
+                dlg.ShowDialog(this);
+            }
+        }
+
         #endregion Private Methods
 
         #region Private Classes

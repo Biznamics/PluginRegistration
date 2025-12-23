@@ -135,6 +135,12 @@
     <Compile Include="Forms\AssembliesFilterForm.Designer.cs">
       <DependentUpon>AssembliesFilterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DependenciesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DependenciesDialog.Designer.cs">
+      <DependentUpon>DependenciesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ExportTypeSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
