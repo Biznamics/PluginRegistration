@@ -22,23 +22,25 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDependency)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBoxDependency
-            // 
-            this.pictureBoxDependency.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBoxDependency.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxDependency.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxDependency.Name = "pictureBoxDependency";
-            this.pictureBoxDependency.TabIndex = 1;
-            this.pictureBoxDependency.TabStop = false;
-            // 
             // listBoxDependencies
             // 
             this.listBoxDependencies.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxDependencies.FormattingEnabled = true;
-            this.listBoxDependencies.Location = new System.Drawing.Point(0, this.pictureBoxDependency.Height);
+            this.listBoxDependencies.Location = new System.Drawing.Point(0, 50);
             this.listBoxDependencies.Name = "listBoxDependencies";
-            this.listBoxDependencies.Size = new System.Drawing.Size(384, 261 - this.pictureBoxDependency.Height);
+            this.listBoxDependencies.Size = new System.Drawing.Size(384, 211);
             this.listBoxDependencies.TabIndex = 0;
+            this.listBoxDependencies.DoubleClick += new System.EventHandler(this.ListBoxDependencies_DoubleClick);
+            // 
+            // pictureBoxDependency
+            // 
+            this.pictureBoxDependency.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBoxDependency.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxDependency.Name = "pictureBoxDependency";
+            this.pictureBoxDependency.Size = new System.Drawing.Size(384, 50);
+            this.pictureBoxDependency.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxDependency.TabIndex = 1;
+            this.pictureBoxDependency.TabStop = false;
             // 
             // DependenciesDialog
             // 
@@ -53,6 +55,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDependency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

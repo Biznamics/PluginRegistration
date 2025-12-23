@@ -36,8 +36,10 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 else
                 {
                     foreach (var wf in workflows)
-                        listBoxDependencies.Items.Add($"Workflow: {wf}");
+                        listBoxDependencies.Items.Add(new WorkflowLinkItem { Display = $"Workflow: {wf.Name} (Open in CRM)", Url = wf.Url });
                 }
+                listBoxDependencies.DoubleClick += ListBoxDependencies_DoubleClick;
+                listBoxDependencies.MouseMove += ListBoxDependencies_MouseMove;
             }
             else
             {
@@ -53,7 +55,6 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             InitializeComponent();
             Text = $"Dependencies for Step: {step.Name}";
             var org = step.Organization;
-            bool addedLink = false;
             if (org != null && org.MessageEntities != null && org.MessageEntities.ContainsKey(step.MessageEntityId))
             {
                 var msgEntity = org.MessageEntities[step.MessageEntityId];
@@ -63,13 +64,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 }
                 else
                 {
-                    // Add clickable link for primary entity
-                    AddEntityLink(msgEntity.PrimaryEntity, org.ConnectionDetail?.WebApplicationUrl);
-                    addedLink = true;
+                    // Add as object, not string
+                    listBoxDependencies.Items.Add(new EntityLinkItem { Display = $"Primary Entity: {msgEntity.PrimaryEntity} (Open in CRM)", Url = org.ConnectionDetail?.WebApplicationUrl?.TrimEnd('/') + $"/main.aspx?etn={msgEntity.PrimaryEntity}&pagetype=entitylist" });
                     if (!string.IsNullOrEmpty(msgEntity.SecondaryEntity) && msgEntity.SecondaryEntity != "none")
                     {
-                        AddEntityLink(msgEntity.SecondaryEntity, org.ConnectionDetail?.WebApplicationUrl, "Secondary Entity: ");
-                        addedLink = true;
+                        listBoxDependencies.Items.Add(new EntityLinkItem { Display = $"Secondary Entity: {msgEntity.SecondaryEntity} (Open in CRM)", Url = org.ConnectionDetail?.WebApplicationUrl?.TrimEnd('/') + $"/main.aspx?etn={msgEntity.SecondaryEntity}&pagetype=entitylist" });
                     }
                 }
             }
@@ -81,31 +80,36 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             {
                 listBoxDependencies.Items.Add($"Image: {image.Name}");
             }
-            if (addedLink)
-            {
-                listBoxDependencies.MouseClick += ListBoxDependencies_MouseClick;
-                listBoxDependencies.MouseMove += ListBoxDependencies_MouseMove;
-            }
+            listBoxDependencies.DoubleClick += ListBoxDependencies_DoubleClick;
+            listBoxDependencies.MouseMove += ListBoxDependencies_MouseMove;
         }
 
-        private void AddEntityLink(string entityLogicalName, string baseUrl, string prefix = "Primary Entity: ")
+        private void ListBoxDependencies_DoubleClick(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(entityLogicalName) || string.IsNullOrEmpty(baseUrl))
+            var item = listBoxDependencies.SelectedItem;
+            if (item is EntityLinkItem linkItem)
             {
-                listBoxDependencies.Items.Add($"{prefix}{entityLogicalName}");
-                return;
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = linkItem.Url,
+                        UseShellExecute = true
+                    });
+                }
+                catch { }
             }
-            string url = baseUrl.TrimEnd('/') + $"/main.aspx?etn={entityLogicalName}&pagetype=entitylist";
-            // Store as a special ListBoxItem
-            listBoxDependencies.Items.Add(new EntityLinkItem { Display = $"{prefix}{entityLogicalName} (Open in CRM)", Url = url });
-        }
-
-        private void ListBoxDependencies_MouseClick(object sender, MouseEventArgs e)
-        {
-            int index = listBoxDependencies.IndexFromPoint(e.Location);
-            if (index >= 0 && listBoxDependencies.Items[index] is EntityLinkItem item)
+            else if (item is WorkflowLinkItem wfItem)
             {
-                try { Process.Start(item.Url); } catch { }
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = wfItem.Url,
+                        UseShellExecute = true
+                    });
+                }
+                catch { }
             }
         }
 
@@ -128,35 +132,49 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             public string Url { get; set; }
             public override string ToString() => Display;
         }
-
-        private List<string> FindWorkflowsUsingActivity(CrmPlugin plugin)
+        private class WorkflowLinkItem
         {
-            var result = new List<string>();
+            public string Display { get; set; }
+            public string Url { get; set; }
+            public override string ToString() => Display;
+        }
+
+        // Update FindWorkflowsUsingActivity to return List<WorkflowInfo> with Name and Url
+        private List<WorkflowInfo> FindWorkflowsUsingActivity(CrmPlugin plugin)
+        {
+            var result = new List<WorkflowInfo>();
             try
             {
                 var org = plugin.Organization;
                 if (org == null || org.OrganizationService == null)
                     return result;
-                // Query workflows where XAML contains the type name
                 var qe = new QueryExpression("workflow")
                 {
-                    ColumnSet = new ColumnSet("name", "xaml", "type", "statecode"),
+                    ColumnSet = new ColumnSet("name", "xaml", "type", "statecode", "workflowid"),
                     Criteria = new FilterExpression
                     {
                         Conditions =
                         {
-                            new ConditionExpression("type", ConditionOperator.Equal, 1), // Definition (not dialog)
-                            new ConditionExpression("statecode", ConditionOperator.In, new object[] {0,1}) // Draft or Activated
+                            new ConditionExpression("type", ConditionOperator.Equal, 1),
+                            new ConditionExpression("statecode", ConditionOperator.In, new object[] {0,1})
                         }
                     }
                 };
                 var workflows = org.OrganizationService.RetrieveMultiple(qe);
+                var baseUrl = org.ConnectionDetail?.WebApplicationUrl?.TrimEnd('/');
                 foreach (var wf in workflows.Entities)
                 {
                     var xaml = wf.GetAttributeValue<string>("xaml");
                     if (!string.IsNullOrEmpty(xaml) && xaml.Contains(plugin.TypeName))
                     {
-                        result.Add(wf.GetAttributeValue<string>("name"));
+                        var name = wf.GetAttributeValue<string>("name");
+                        var id = wf.Id;
+                        string url = null;
+                        if (!string.IsNullOrEmpty(baseUrl) && id != Guid.Empty)
+                        {
+                            url = $"{baseUrl}/main.aspx?pagetype=entityrecord&etn=workflow&id={id}";
+                        }
+                        result.Add(new WorkflowInfo { Name = name, Url = url });
                     }
                 }
             }
@@ -165,6 +183,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 listBoxDependencies.Items.Add($"Error querying CRM: {ex.Message}");
             }
             return result;
+        }
+        private class WorkflowInfo
+        {
+            public string Name { get; set; }
+            public string Url { get; set; }
         }
     }
 }

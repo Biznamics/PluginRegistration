@@ -407,6 +407,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CrmTreeControlDefaults.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DependenciesDialog.resx">
+      <DependentUpon>DependenciesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ErrorMessageForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ErrorMessageForm.cs</DependentUpon>
