@@ -1179,7 +1179,25 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 radModeAsync.Checked = true;
             }
         }
-
+        /// <summary>
+        /// This method is used to disable the Accept button when entering a multiline text box to prevent accidental submissions.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void longText_Enter(object sender, EventArgs e)
+        {
+            AcceptButton = null;
+        }
+        /// <summary>
+        /// This method is used to re-enable the Accept button when leaving a multiline text box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void longText_Leave(object sender, EventArgs e)
+        {
+            AcceptButton = btnRegister;
+        }
         #endregion Private Methods
+
     }
 }
