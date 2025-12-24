@@ -279,7 +279,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbWebhook.FormattingEnabled = true;
             this.cmbWebhook.Location = new System.Drawing.Point(127, 117);
-            this.cmbWebhook.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbWebhook.Margin = new System.Windows.Forms.Padding(2);
             this.cmbWebhook.Name = "cmbWebhook";
             this.cmbWebhook.Size = new System.Drawing.Size(242, 21);
             this.cmbWebhook.TabIndex = 19;
@@ -300,8 +300,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             // grpSecureConfiguration
             // 
-            this.grpSecureConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpSecureConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSecureConfiguration.Controls.Add(this.lnkInvalidSecureConfigurationId);
             this.grpSecureConfiguration.Controls.Add(this.lblInvalidSecureConfigurationId);
@@ -521,7 +520,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(827, 414);
             this.btnCancel.Name = "btnCancel";
@@ -680,8 +679,6 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.Controls.Add(this.grpMode);
             this.Controls.Add(this.grpSecureConfiguration);
             this.Controls.Add(this.grpGeneral);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(921, 478);
             this.Name = "StepRegistrationForm";
