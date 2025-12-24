@@ -44,6 +44,8 @@ namespace Xrm.Sdk.PluginRegistration
             this.tsmiAddToSolution = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCheckActiveLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextNodeShowDependencies = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuContextNodeEnableAllSteps = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuContextNodeDisableAllSteps = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextGeneral = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuContextGeneralAssemblyRegister = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuContextGeneralStepRegister = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,6 +74,8 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolUnregister = new System.Windows.Forms.ToolStripButton();
             this.toolAddToSolution = new System.Windows.Forms.ToolStripButton();
             this.toolShowDependencies = new System.Windows.Forms.ToolStripButton();
+            this.toolEnableAllSteps = new System.Windows.Forms.ToolStripButton();
+            this.toolDisableAllSteps = new System.Windows.Forms.ToolStripButton();
             this.toolCommonSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolSearch = new System.Windows.Forms.ToolStripButton();
@@ -84,10 +88,10 @@ namespace Xrm.Sdk.PluginRegistration
             this.imlEnableImages = new System.Windows.Forms.ImageList(this.components);
             this.splitterDisplay = new System.Windows.Forms.SplitContainer();
             this.grpPlugins = new System.Windows.Forms.GroupBox();
-            this.trvPlugins = new Xrm.Sdk.PluginRegistration.Controls.CrmTreeControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.propGridEntity = new System.Windows.Forms.PropertyGrid();
             this.btnSave = new System.Windows.Forms.Button();
+            this.trvPlugins = new Xrm.Sdk.PluginRegistration.Controls.CrmTreeControl();
             this.mnuContextNode.SuspendLayout();
             this.mnuContextGeneral.SuspendLayout();
             this.grpGrid.SuspendLayout();
@@ -118,9 +122,11 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolStripSeparator3,
             this.tsmiAddToSolution,
             this.tsmiCheckActiveLayer,
-            this.mnuContextNodeShowDependencies});
+            this.mnuContextNodeShowDependencies,
+            this.mnuContextNodeEnableAllSteps,
+            this.mnuContextNodeDisableAllSteps});
             this.mnuContextNode.Name = "mnuContextNode";
-            this.mnuContextNode.Size = new System.Drawing.Size(206, 352);
+            this.mnuContextNode.Size = new System.Drawing.Size(206, 412);
             // 
             // mnuContextNodeAssemblyRegister
             // 
@@ -216,6 +222,22 @@ namespace Xrm.Sdk.PluginRegistration
             this.mnuContextNodeShowDependencies.Text = "Show Dependencies";
             this.mnuContextNodeShowDependencies.Click += new System.EventHandler(this.mnuContextNodeShowDependencies_Click);
             // 
+            // mnuContextNodeEnableAllSteps
+            // 
+            this.mnuContextNodeEnableAllSteps.Image = global::Xrm.Sdk.PluginRegistration.CrmTreeControlDefaults.StepsAllEnabled;
+            this.mnuContextNodeEnableAllSteps.Name = "mnuContextNodeEnableAllSteps";
+            this.mnuContextNodeEnableAllSteps.Size = new System.Drawing.Size(205, 30);
+            this.mnuContextNodeEnableAllSteps.Text = "Enable All Steps";
+            this.mnuContextNodeEnableAllSteps.Click += new System.EventHandler(this.mnuContextNodeEnableAllSteps_Click);
+            // 
+            // mnuContextNodeDisableAllSteps
+            // 
+            this.mnuContextNodeDisableAllSteps.Image = global::Xrm.Sdk.PluginRegistration.CrmTreeControlDefaults.StepsAllDisabled;
+            this.mnuContextNodeDisableAllSteps.Name = "mnuContextNodeDisableAllSteps";
+            this.mnuContextNodeDisableAllSteps.Size = new System.Drawing.Size(205, 30);
+            this.mnuContextNodeDisableAllSteps.Text = "Disable All Steps";
+            this.mnuContextNodeDisableAllSteps.Click += new System.EventHandler(this.mnuContextNodeDisableAllSteps_Click);
+            // 
             // mnuContextGeneral
             // 
             this.mnuContextGeneral.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -276,9 +298,9 @@ namespace Xrm.Sdk.PluginRegistration
             this.grpGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGrid.Controls.Add(this.grvData);
-            this.grpGrid.Location = new System.Drawing.Point(0, 479);
+            this.grpGrid.Location = new System.Drawing.Point(0, 480);
             this.grpGrid.Name = "grpGrid";
-            this.grpGrid.Size = new System.Drawing.Size(845, 218);
+            this.grpGrid.Size = new System.Drawing.Size(851, 218);
             this.grpGrid.TabIndex = 1;
             this.grpGrid.TabStop = false;
             // 
@@ -303,7 +325,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.grvData.ShowCellErrors = false;
             this.grvData.ShowEditingIcon = false;
             this.grvData.ShowRowErrors = false;
-            this.grvData.Size = new System.Drawing.Size(833, 200);
+            this.grvData.Size = new System.Drawing.Size(839, 200);
             this.grvData.TabIndex = 1;
             this.grvData.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.grvData_RowEnter);
             this.grvData.DoubleClick += new System.EventHandler(this.grvData_DoubleClick);
@@ -320,6 +342,8 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolUnregister,
             this.toolAddToSolution,
             this.toolShowDependencies,
+            this.toolEnableAllSteps,
+            this.toolDisableAllSteps,
             this.toolCommonSep2,
             this.toolRefresh,
             this.toolSearch,
@@ -332,7 +356,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
             this.toolBar.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolBar.Size = new System.Drawing.Size(851, 31);
+            this.toolBar.Size = new System.Drawing.Size(857, 31);
             this.toolBar.TabIndex = 9;
             this.toolBar.Text = "toolStrip1";
             // 
@@ -493,6 +517,22 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolShowDependencies.Text = "Show Dependencies";
             this.toolShowDependencies.Click += new System.EventHandler(this.toolShowDependencies_Click);
             // 
+            // toolEnableAllSteps
+            // 
+            this.toolEnableAllSteps.Image = global::Xrm.Sdk.PluginRegistration.CrmTreeControlDefaults.StepsAllEnabled;
+            this.toolEnableAllSteps.Name = "toolEnableAllSteps";
+            this.toolEnableAllSteps.Size = new System.Drawing.Size(118, 28);
+            this.toolEnableAllSteps.Text = "Enable All Steps";
+            this.toolEnableAllSteps.ToolTipText = "Enable All Steps on a plugin assembly of a particular plugin";
+            // 
+            // toolDisableAllSteps
+            // 
+            this.toolDisableAllSteps.Image = global::Xrm.Sdk.PluginRegistration.CrmTreeControlDefaults.StepsAllDisabled;
+            this.toolDisableAllSteps.Name = "toolDisableAllSteps";
+            this.toolDisableAllSteps.Size = new System.Drawing.Size(118, 28);
+            this.toolDisableAllSteps.Text = "Disable all steps";
+            this.toolDisableAllSteps.ToolTipText = "Disable all steps on an assembly or a step";
+            // 
             // toolCommonSep2
             // 
             this.toolCommonSep2.Name = "toolCommonSep2";
@@ -551,7 +591,7 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.tsbFilterAssemblies.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFilterAssemblies.Name = "tsbFilterAssemblies";
-            this.tsbFilterAssemblies.Size = new System.Drawing.Size(99, 28);
+            this.tsbFilterAssemblies.Size = new System.Drawing.Size(99, 19);
             this.tsbFilterAssemblies.Text = "Filter Assemblies";
             this.tsbFilterAssemblies.ToolTipText = "No filter(s) set";
             this.tsbFilterAssemblies.Click += new System.EventHandler(this.tsbFilterAssemblies_Click);
@@ -577,8 +617,8 @@ namespace Xrm.Sdk.PluginRegistration
             // splitterDisplay.Panel2
             // 
             this.splitterDisplay.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitterDisplay.Size = new System.Drawing.Size(848, 445);
-            this.splitterDisplay.SplitterDistance = 562;
+            this.splitterDisplay.Size = new System.Drawing.Size(854, 446);
+            this.splitterDisplay.SplitterDistance = 565;
             this.splitterDisplay.TabIndex = 11;
             // 
             // grpPlugins
@@ -589,10 +629,45 @@ namespace Xrm.Sdk.PluginRegistration
             this.grpPlugins.Controls.Add(this.trvPlugins);
             this.grpPlugins.Location = new System.Drawing.Point(0, 0);
             this.grpPlugins.Name = "grpPlugins";
-            this.grpPlugins.Size = new System.Drawing.Size(559, 442);
+            this.grpPlugins.Size = new System.Drawing.Size(562, 443);
             this.grpPlugins.TabIndex = 1;
             this.grpPlugins.TabStop = false;
             this.grpPlugins.Text = "Registered Plugins && Custom Workflow Activities";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.propGridEntity, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnSave, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(285, 446);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // propGridEntity
+            // 
+            this.propGridEntity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propGridEntity.Location = new System.Drawing.Point(3, 3);
+            this.propGridEntity.Name = "propGridEntity";
+            this.propGridEntity.Size = new System.Drawing.Size(279, 405);
+            this.propGridEntity.TabIndex = 4;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(3, 414);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // trvPlugins
             // 
@@ -608,46 +683,11 @@ namespace Xrm.Sdk.PluginRegistration
             this.trvPlugins.Name = "trvPlugins";
             this.trvPlugins.SelectedNode = null;
             this.trvPlugins.ShowNodeToolTips = false;
-            this.trvPlugins.Size = new System.Drawing.Size(547, 422);
+            this.trvPlugins.Size = new System.Drawing.Size(550, 423);
             this.trvPlugins.TabIndex = 0;
             this.trvPlugins.DoubleClick += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeEventArgs>(this.trvPlugins_DoubleClick);
             this.trvPlugins.NodeRemoved += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeEventArgs>(this.trvPlugins_NodeRemoved);
             this.trvPlugins.SelectionChanged += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeTreeEventArgs>(this.trvPlugins_SelectionChanged);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.propGridEntity, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnSave, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(282, 445);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // propGridEntity
-            // 
-            this.propGridEntity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propGridEntity.Location = new System.Drawing.Point(3, 3);
-            this.propGridEntity.Name = "propGridEntity";
-            this.propGridEntity.Size = new System.Drawing.Size(276, 404);
-            this.propGridEntity.TabIndex = 4;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(3, 413);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // MainControl
             // 
@@ -658,7 +698,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.Controls.Add(this.toolBar);
             this.Controls.Add(this.grpGrid);
             this.Name = "MainControl";
-            this.Size = new System.Drawing.Size(851, 697);
+            this.Size = new System.Drawing.Size(857, 698);
             this.mnuContextNode.ResumeLayout(false);
             this.mnuContextGeneral.ResumeLayout(false);
             this.grpGrid.ResumeLayout(false);
@@ -737,5 +777,9 @@ namespace Xrm.Sdk.PluginRegistration
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem mnuContextNodeShowDependencies;
         private System.Windows.Forms.ToolStripButton toolShowDependencies;
+        private System.Windows.Forms.ToolStripMenuItem mnuContextNodeEnableAllSteps;
+        private System.Windows.Forms.ToolStripButton toolEnableAllSteps;
+        private System.Windows.Forms.ToolStripMenuItem mnuContextNodeDisableAllSteps;
+        private System.Windows.Forms.ToolStripButton toolDisableAllSteps;
     }
 }

@@ -199,6 +199,12 @@
   <data name="StepProfiledSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\stepprofiledselected.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StepsAllDisabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\StepsAllDisabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StepsAllEnabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\StepsAllEnabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="WorkflowActivity" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\workflowactivity.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

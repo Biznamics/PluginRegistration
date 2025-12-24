@@ -333,6 +333,26 @@ namespace Xrm.Sdk.PluginRegistration {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap StepsAllDisabled {
+            get {
+                object obj = ResourceManager.GetObject("StepsAllDisabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StepsAllEnabled {
+            get {
+                object obj = ResourceManager.GetObject("StepsAllEnabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap WorkflowActivity {
             get {
                 object obj = ResourceManager.GetObject("WorkflowActivity", resourceCulture);

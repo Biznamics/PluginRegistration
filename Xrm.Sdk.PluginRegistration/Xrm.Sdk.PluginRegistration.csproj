@@ -472,6 +472,8 @@
     <None Include="Images\ServiceEndpointSelected.gif" />
     <Content Include="Images\StepProfiled.gif" />
     <Content Include="Images\StepProfiledSelected.gif" />
+    <Content Include="Images\StepsAllDisabled.png" />
+    <Content Include="Images\StepsAllEnabled.png" />
     <Content Include="Images\UninstallProfiler.gif" />
     <Content Include="Images\Update.gif" />
     <None Include="Images\ImportExport.gif" />

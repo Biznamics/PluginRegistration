@@ -2369,6 +2369,77 @@ namespace Xrm.Sdk.PluginRegistration
             }
         }
 
+        private void mnuContextNodeEnableAllSteps_Click(object sender, EventArgs e)
+        {
+            EnableDisableAllSteps(true);
+        }
+
+        private void mnuContextNodeDisableAllSteps_Click(object sender, EventArgs e)
+        {
+            EnableDisableAllSteps(false);
+        }
+
+        private void EnableDisableAllSteps(bool enable)
+        {
+            var node = trvPlugins.SelectedNode;
+            if (node == null) return;
+
+            List<Wrappers.CrmPluginStep> steps = new List<Wrappers.CrmPluginStep>();
+
+            if (node.NodeType == CrmTreeNodeType.Package)
+            {
+                var package = (Wrappers.CrmPluginPackage)node;
+                foreach (var assembly in package.Assemblies.Values)
+                    foreach (var plugin in assembly.Plugins.Values)
+                        steps.AddRange(plugin.Steps.Values);
+            }
+            else if (node.NodeType == CrmTreeNodeType.Assembly)
+            {
+                var assembly = (Wrappers.CrmPluginAssembly)node;
+                foreach (var plugin in assembly.Plugins.Values)
+                    steps.AddRange(plugin.Steps.Values);
+            }
+            else if (node.NodeType == CrmTreeNodeType.Plugin)
+            {
+                var plugin = (Wrappers.CrmPlugin)node;
+                steps.AddRange(plugin.Steps.Values);
+            }
+            else
+            {
+                MessageBox.Show("Please select a package, plugin assembly, or class.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (steps.Count == 0)
+            {
+                MessageBox.Show("No steps found.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = $"{(enable ? "Enabling" : "Disabling")} all steps...",
+                Work = (worker, args) =>
+                {
+                    foreach (var step in steps)
+                    {
+                        if (step.Enabled != enable)
+                        {
+                            Helpers.RegistrationHelper.UpdateStepStatus(m_org, step.StepId, enable);
+                            step.Enabled = enable;
+                        }
+                    }
+                },
+                PostWorkCallBack = evt =>
+                {
+                    foreach (var step in steps)
+                    {
+                        trvPlugins.RefreshNode(step.NodeId);
+                    }
+                    MessageBox.Show($"All steps have been {(enable ? "enabled" : "disabled")}.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            });
+        }
         #endregion Private Methods
 
         #region Private Classes
