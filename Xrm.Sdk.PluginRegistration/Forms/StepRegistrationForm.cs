@@ -1102,6 +1102,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 
         private void txtMessageName_Leave(object sender, EventArgs e)
         {
+            EnableAcceptButton();
             LoadEntities();
             CheckAttributesSupported();
         }
@@ -1122,6 +1123,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 
         private void txtName_Leave(object sender, EventArgs e)
         {
+            EnableAcceptButton();
             if (txtName.TextLength == 0)
             {
                 m_stepName = string.Empty;
@@ -1186,7 +1188,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         /// <param name="e"></param>
         private void longText_Enter(object sender, EventArgs e)
         {
-            AcceptButton = null;
+            DisableAcceptButton();
         }
         /// <summary>
         /// This method is used to re-enable the Accept button when leaving a multiline text box.
@@ -1195,9 +1197,56 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         /// <param name="e"></param>
         private void longText_Leave(object sender, EventArgs e)
         {
+            EnableAcceptButton();
+        }
+        private void DisableAcceptButton()
+        {
+            AcceptButton = null;
+        }
+        private void EnableAcceptButton()
+        {
             AcceptButton = btnRegister;
         }
         #endregion Private Methods
 
+        private void txtMessageName_Enter(object sender, EventArgs e)
+        {
+            DisableAcceptButton();
+        }
+
+        private void txtPrimaryEntity_Enter(object sender, EventArgs e)
+        {
+            DisableAcceptButton();
+        }
+
+        private void txtSecondaryEntity_Enter(object sender, EventArgs e)
+        {
+            DisableAcceptButton();
+        }
+
+        private void txtName_Enter(object sender, EventArgs e)
+        {
+            DisableAcceptButton();
+        }
+
+        private void cmbUsers_Enter(object sender, EventArgs e)
+        {
+            DisableAcceptButton();
+        }
+
+        private void cmbUsers_Leave(object sender, EventArgs e)
+        {
+            EnableAcceptButton();
+        }
+
+        private void txtRank_Leave(object sender, EventArgs e)
+        {
+            EnableAcceptButton();
+        }
+
+        private void txtRank_Enter(object sender, EventArgs e)
+        {
+            DisableAcceptButton();
+        }
     }
 }

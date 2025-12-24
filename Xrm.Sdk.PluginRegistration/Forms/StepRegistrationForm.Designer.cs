@@ -155,7 +155,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.txtRank.Size = new System.Drawing.Size(316, 20);
             this.txtRank.TabIndex = 18;
             this.txtRank.Text = "1";
+            this.txtRank.Enter += new System.EventHandler(this.txtRank_Enter);
             this.txtRank.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRank_KeyPress);
+            this.txtRank.Leave += new System.EventHandler(this.txtRank_Leave);
             // 
             // lblRank
             // 
@@ -176,6 +178,8 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.cmbUsers.Name = "cmbUsers";
             this.cmbUsers.Size = new System.Drawing.Size(316, 21);
             this.cmbUsers.TabIndex = 16;
+            this.cmbUsers.Enter += new System.EventHandler(this.cmbUsers_Enter);
+            this.cmbUsers.Leave += new System.EventHandler(this.cmbUsers_Leave);
             // 
             // lblImpersonation
             // 
@@ -195,6 +199,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.txtName.Size = new System.Drawing.Size(316, 20);
             this.txtName.TabIndex = 14;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
+            this.txtName.Enter += new System.EventHandler(this.txtName_Enter);
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
             // lblDescription
@@ -217,6 +222,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.txtSecondaryEntity.Size = new System.Drawing.Size(316, 20);
             this.txtSecondaryEntity.TabIndex = 7;
             this.txtSecondaryEntity.TextChanged += new System.EventHandler(this.MessageData_TextChanged);
+            this.txtSecondaryEntity.Enter += new System.EventHandler(this.txtSecondaryEntity_Enter);
             this.txtSecondaryEntity.Leave += new System.EventHandler(this.MessageEntityData_Leave);
             // 
             // lblSecondaryEntity
@@ -239,6 +245,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.txtPrimaryEntity.Size = new System.Drawing.Size(316, 20);
             this.txtPrimaryEntity.TabIndex = 5;
             this.txtPrimaryEntity.TextChanged += new System.EventHandler(this.MessageData_TextChanged);
+            this.txtPrimaryEntity.Enter += new System.EventHandler(this.txtPrimaryEntity_Enter);
             this.txtPrimaryEntity.Leave += new System.EventHandler(this.MessageEntityData_Leave);
             // 
             // lblPrimaryEntity
@@ -261,6 +268,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.txtMessageName.Size = new System.Drawing.Size(316, 20);
             this.txtMessageName.TabIndex = 3;
             this.txtMessageName.TextChanged += new System.EventHandler(this.MessageData_TextChanged);
+            this.txtMessageName.Enter += new System.EventHandler(this.txtMessageName_Enter);
             this.txtMessageName.Leave += new System.EventHandler(this.txtMessageName_Leave);
             this.txtMessageName.Validating += new System.ComponentModel.CancelEventHandler(this.txtMessageName_Validating);
             // 
