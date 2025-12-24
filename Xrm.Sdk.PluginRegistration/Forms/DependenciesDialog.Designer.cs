@@ -50,6 +50,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.Controls.Add(this.listBoxDependencies);
             this.Controls.Add(this.pictureBoxDependency);
             this.Name = "DependenciesDialog";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Dependencies";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDependency)).EndInit();

@@ -97,7 +97,10 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                         UseShellExecute = true
                     });
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Unable to open link: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (item is WorkflowLinkItem wfItem)
             {
@@ -109,7 +112,10 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                         UseShellExecute = true
                     });
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Unable to open link: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
