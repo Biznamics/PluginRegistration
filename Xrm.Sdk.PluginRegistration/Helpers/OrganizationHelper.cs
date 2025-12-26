@@ -1406,6 +1406,17 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
             }
         }
 
+        /// <summary>
+        /// Clears all messages from the message cache.
+        /// </summary>
+        public static void ClearMessageCache()
+        {
+            lock (m_messageList)
+            {
+                m_messageList.Clear();
+            }
+        }
+
         private static CrmMessage UpdateMessageProperties(CrmMessage message, CrmOrganization org)
         {
             switch (message.Name)

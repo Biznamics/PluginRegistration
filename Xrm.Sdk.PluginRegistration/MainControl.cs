@@ -555,6 +555,8 @@ namespace Xrm.Sdk.PluginRegistration
                 {
                     try
                     {
+                        // Clear the static message cache before reloading messages
+                        OrganizationHelper.ClearMessageCache();
                         OrganizationHelper.RefreshConnection(m_org, m_settings, OrganizationHelper.LoadMessages(m_org), m_progressIndicator);
                         Invoke(new Action(() =>
                         {
