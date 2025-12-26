@@ -953,7 +953,11 @@ namespace Xrm.Sdk.PluginRegistration
                         model = ForEachPluginExport((CrmPlugin)node);
                     }
                     break;
-
+                case CrmTreeNodeType.WebHook:
+                    {
+                        model = ForEachWebhookExport((CrmServiceEndpoint)node);
+                    }
+                    break;
                 default:
                     throw new NotImplementedException($"NodeType = {node.NodeType.ToString()}");
             }
@@ -1006,6 +1010,12 @@ namespace Xrm.Sdk.PluginRegistration
                                                                                         || 0 != x.CustomizationLevel) && !x.IsProfilerAssembly)).OrderBy(x => x.Name))
             {
                 model.AddRange(ForEachAssemblyExport(assembly));
+            }
+
+            // Add webhooks export
+            foreach (CrmServiceEndpoint webhook in Organization.Webhooks.OrderBy(x => x.Name))
+            {
+                model.AddRange(ForEachWebhookExport(webhook));
             }
 
             if (string.Equals(fileInfo.Extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
@@ -1114,6 +1124,48 @@ namespace Xrm.Sdk.PluginRegistration
                     break;
             }
             return csvModel;
+        }
+
+        private List<ExportModel> ForEachWebhookExport(CrmServiceEndpoint webhook)
+        {
+            if (webhook == null)
+            {
+                throw new ArgumentNullException("webhook");
+            }
+            var model = new List<ExportModel>();
+
+            // Webhook metadata row
+            var webhookInfo = new ExportModel
+            {
+                AssemblyName = webhook.Name, // Use AssemblyName for webhook name for consistency
+                TypeName = string.Empty,
+                PluginType = "Webhook",
+                Description = webhook.Description,
+                IsolationMode = null, // Webhooks may not have isolation mode
+                SourceType = "Webhook"
+            };
+            model.Add(webhookInfo);
+
+            // Steps under webhook
+            foreach (var step in webhook.Steps.Values)
+            {
+                var stepInfo = GetInfoForStep(step);
+                if (stepInfo == null)
+                {
+                    continue;
+                }
+                stepInfo.AssemblyName = webhook.Name;
+                stepInfo.TypeName = string.Empty;
+                model.Add(stepInfo);
+                // Images under step (if any)
+                foreach (var image in step.Images)
+                {
+                    var imageInfo = GetInfoForImages(image);
+                    imageInfo.TypeName = string.Empty;
+                    model.Add(imageInfo);
+                }
+            }
+            return model;
         }
 
         private ExportModel GetInfoForStep(CrmPluginStep step)
