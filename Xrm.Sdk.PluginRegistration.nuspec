@@ -5,11 +5,11 @@
 		<version>1.0.0</version>
 		<title>Plugin Registration for XrmToolBox</title>
 		<authors>Microsoft, Alexey, Jonas, Imran and the Power Platform community</authors>
-		<owners>Innofactor</owners>
+		<owners>Biznamics AB</owners>
 		<iconUrl>https://user-images.githubusercontent.com/13014005/80118859-41d95f80-8589-11ea-9262-8d18cbccbe0c.png</iconUrl>
 		<icon>icon.png</icon>
 		<readme>docs\README.md</readme>
-		<projectUrl>https://github.com/Innofactor/PluginRegistration</projectUrl>
+		<projectUrl>https://github.com/Biznamics/PluginRegistration</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>
 			The Classic Microsoft Dynamics CRM tool, now in the XrmToolBox suite.
@@ -18,15 +18,23 @@
 		</description>
 		<summary>The Classic Microsoft Dynamics CRM tool, now in the XrmToolBox suite</summary>
 		<releaseNotes>
-			-- Bug Fixes --
-			#139: Bug fixing in Package handling @MarkMpn
-			#142: Support for CreateMultiple and UpdateMultiple @JonasRapp
+			New features
+			- #46: Bulk enable/disable all steps for a plugin type or an entire assembly
+			- #78: Added a refresh option for available messages (including newly added Custom Actions) without restarting the tool
+			- #84: Export now includes Webhook (Service Endpoint) information
+			- #150: Show dependencies for a plugin assembly (button + context menu entry)
+
+			UX &amp; stability improvements
+			- #66: Prevent invalid image registration by disabling Pre-Image for Create steps (Create does not support this image type)
+			- #129: Prevent accidental "Save &amp; Close" when pressing Enter in the Step editor
+			- #146: Step Configuration editor improvements: monospaced font for JSON/XML, resizable dialog with splitter, word wrap off, and safer default-button behavior to avoid accidental updates
 		</releaseNotes>
+
 		<tags>XrmToolBox Plugins PluginRegistration</tags>
 		<dependencies>
-			<dependency id="XrmToolBoxPackage" version="1.2023.10.67" />
-			<dependency id="CsvHelper" version="31.0.2"/>
-			<dependency id="EPPlus" version="7.0.9"/>
+			<dependency id="XrmToolBoxPackage" version="1.2024.5.1" />
+			<dependency id="CsvHelper" version="31.1.0"/>
+			<dependency id="EPPlus" version="7.1.2"/>
 		</dependencies>
 	</metadata>
 	<files>
