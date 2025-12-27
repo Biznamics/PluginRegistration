@@ -32,6 +32,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private CrmPluginImage m_currentImage;
         private CrmOrganization m_org;
         private MainControl m_orgControl;
+        private ToolTip _toolTip; // Tooltip for "Pre" checkbox when it is disabled for Create message
 
         #endregion Private Fields
 
@@ -58,6 +59,8 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 
             InitializeComponent();
 
+            _toolTip = new ToolTip();
+
             crmParameters.Organization = org;
 
             trvPlugins.CrmTreeNodeSorter = orgControl.CrmTreeNodeSorter;
@@ -78,6 +81,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 txtName.Text = image.Name;
 
                 step = m_org[image.AssemblyId][image.PluginId][image.StepId];
+                // Set PreImage checkbox state
+                SetPreImageCheckboxForStep(step);
+
                 if (step.MessageEntityId == Guid.Empty)
                 {
                     crmParameters.EntityName = "none";
@@ -328,14 +334,44 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                     crmParameters.Enabled = false;
                 }
                 btnRegister.Enabled = true;
+                // Set PreImage checkbox state for selection
+                SetPreImageCheckboxForStep(step);
             }
             else
             {
                 crmParameters.Attributes = null;
                 btnRegister.Enabled = false;
+                // Reset PreImage checkbox state
+                chkImageTypePre.Enabled = true;
+                _toolTip.SetToolTip(chkImageTypePre, string.Empty);
+                chkImageTypePre.Tag = null;
             }
         }
 
+        // Helper to enable/disable PreImage checkbox for Create message
+        private void SetPreImageCheckboxForStep(CrmPluginStep step)
+        {
+            if (step == null)
+                return;
+            var message = m_org.Messages[step.MessageId];
+            if (string.Equals(message.Name, "Create", StringComparison.OrdinalIgnoreCase))
+            {
+                chkImageTypePre.Checked = false;
+                chkImageTypePre.Enabled = false;
+                //Note: The tooltip just does not show up on disabled controls, leaving it as-is for now.
+                _toolTip.SetToolTip(chkImageTypePre, "Message Create does not support this image type.");
+                chkImageTypePre.Tag = "Message Create does not support this image type.";
+            }
+            else
+            {
+                chkImageTypePre.Enabled = true;
+                _toolTip.SetToolTip(chkImageTypePre, string.Empty);
+                chkImageTypePre.Tag = null;
+            }
+        }
+       
         #endregion Private Methods
+
+
     }
 }

@@ -49,6 +49,7 @@ namespace Xrm.Sdk.PluginRegistration
 
         private const string SYSTEM_ERROR_CAPTION = "Microsoft Dynamics CRM";
         private const string SYSTEM_ERROR_MESSAGE = "The selected item is required for the Microsoft Dynamics CRM system to work correctly.";
+        private const string EPPLUS_LICENSE_ORG_NAME = "Plugin Registration Tool in XrmToolBox";
         private static CrmEntitySorter m_entitySorter;
         private ConnectionDetail m_con;
         private CrmViewType m_currentView;
@@ -554,6 +555,8 @@ namespace Xrm.Sdk.PluginRegistration
                 {
                     try
                     {
+                        // Clear the static message cache before reloading messages
+                        OrganizationHelper.ClearMessageCache();
                         OrganizationHelper.RefreshConnection(m_org, m_settings, OrganizationHelper.LoadMessages(m_org), m_progressIndicator);
                         Invoke(new Action(() =>
                         {
@@ -952,13 +955,17 @@ namespace Xrm.Sdk.PluginRegistration
                         model = ForEachPluginExport((CrmPlugin)node);
                     }
                     break;
-
+                case CrmTreeNodeType.WebHook:
+                    {
+                        model = ForEachWebhookExport((CrmServiceEndpoint)node);
+                    }
+                    break;
                 default:
                     throw new NotImplementedException($"NodeType = {node.NodeType.ToString()}");
             }
             if (string.Equals(fileInfo.Extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
             {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                ExcelPackage.License.SetNonCommercialOrganization(EPPLUS_LICENSE_ORG_NAME); 
 
                 using (var xlPackage = new ExcelPackage(fileInfo))
                 {
@@ -1007,9 +1014,15 @@ namespace Xrm.Sdk.PluginRegistration
                 model.AddRange(ForEachAssemblyExport(assembly));
             }
 
+            // Add webhooks export
+            foreach (CrmServiceEndpoint webhook in Organization.Webhooks.OrderBy(x => x.Name))
+            {
+                model.AddRange(ForEachWebhookExport(webhook));
+            }
+
             if (string.Equals(fileInfo.Extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
             {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                ExcelPackage.License.SetNonCommercialOrganization(EPPLUS_LICENSE_ORG_NAME);
 
                 using (var xlPackage = new ExcelPackage(fileInfo))
                 {
@@ -1113,6 +1126,48 @@ namespace Xrm.Sdk.PluginRegistration
                     break;
             }
             return csvModel;
+        }
+
+        private List<ExportModel> ForEachWebhookExport(CrmServiceEndpoint webhook)
+        {
+            if (webhook == null)
+            {
+                throw new ArgumentNullException("webhook");
+            }
+            var model = new List<ExportModel>();
+
+            // Webhook metadata row
+            var webhookInfo = new ExportModel
+            {
+                AssemblyName = webhook.Name, // Use AssemblyName for webhook name for consistency
+                TypeName = string.Empty,
+                PluginType = "Webhook",
+                Description = webhook.Description,
+                IsolationMode = null, // Webhooks may not have isolation mode
+                SourceType = "Webhook"
+            };
+            model.Add(webhookInfo);
+
+            // Steps under webhook
+            foreach (var step in webhook.Steps.Values)
+            {
+                var stepInfo = GetInfoForStep(step);
+                if (stepInfo == null)
+                {
+                    continue;
+                }
+                stepInfo.AssemblyName = webhook.Name;
+                stepInfo.TypeName = string.Empty;
+                model.Add(stepInfo);
+                // Images under step (if any)
+                foreach (var image in step.Images)
+                {
+                    var imageInfo = GetInfoForImages(image);
+                    imageInfo.TypeName = string.Empty;
+                    model.Add(imageInfo);
+                }
+            }
+            return model;
         }
 
         private ExportModel GetInfoForStep(CrmPluginStep step)
@@ -2330,6 +2385,115 @@ namespace Xrm.Sdk.PluginRegistration
             mnuContextNodeEnable.Image = toolEnable.Image;
         }
 
+        private void mnuContextNodeShowDependencies_Click(object sender, EventArgs e)
+        {
+            ShowSelectedAssemblyDependencies();
+        }
+
+        private void toolShowDependencies_Click(object sender, EventArgs e)
+        {
+            ShowSelectedAssemblyDependencies();
+        }
+
+        private void ShowSelectedAssemblyDependencies()
+        {
+            if (trvPlugins.SelectedNode == null)
+            {
+                MessageBox.Show("Please select a plugin assembly, plugin, or step to view its dependencies.", "Show Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            switch (trvPlugins.SelectedNode.NodeType)
+            {
+                case CrmTreeNodeType.Assembly:
+                    using (var dlg = new Forms.DependenciesDialog((Wrappers.CrmPluginAssembly)trvPlugins.SelectedNode))
+                        dlg.ShowDialog(this);
+                    break;
+                case CrmTreeNodeType.Plugin:
+                case CrmTreeNodeType.WorkflowActivity:
+                    using (var dlg = new Forms.DependenciesDialog((Wrappers.CrmPlugin)trvPlugins.SelectedNode))
+                        dlg.ShowDialog(this);
+                    break;
+                case CrmTreeNodeType.Step:
+                    using (var dlg = new Forms.DependenciesDialog((Wrappers.CrmPluginStep)trvPlugins.SelectedNode))
+                        dlg.ShowDialog(this);
+                    break;
+                default:
+                    MessageBox.Show("Please select a plugin assembly, plugin, or step to view its dependencies.", "Show Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+            }
+        }
+
+        private void mnuContextNodeEnableAllSteps_Click(object sender, EventArgs e)
+        {
+            EnableDisableAllSteps(true);
+        }
+
+        private void mnuContextNodeDisableAllSteps_Click(object sender, EventArgs e)
+        {
+            EnableDisableAllSteps(false);
+        }
+
+        private void EnableDisableAllSteps(bool enable)
+        {
+            var node = trvPlugins.SelectedNode;
+            if (node == null) return;
+
+            List<Wrappers.CrmPluginStep> steps = new List<Wrappers.CrmPluginStep>();
+
+            if (node.NodeType == CrmTreeNodeType.Package)
+            {
+                var package = (Wrappers.CrmPluginPackage)node;
+                foreach (var assembly in package.Assemblies.Values)
+                    foreach (var plugin in assembly.Plugins.Values)
+                        steps.AddRange(plugin.Steps.Values);
+            }
+            else if (node.NodeType == CrmTreeNodeType.Assembly)
+            {
+                var assembly = (Wrappers.CrmPluginAssembly)node;
+                foreach (var plugin in assembly.Plugins.Values)
+                    steps.AddRange(plugin.Steps.Values);
+            }
+            else if (node.NodeType == CrmTreeNodeType.Plugin)
+            {
+                var plugin = (Wrappers.CrmPlugin)node;
+                steps.AddRange(plugin.Steps.Values);
+            }
+            else
+            {
+                MessageBox.Show("Please select a package, plugin assembly, or class.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (steps.Count == 0)
+            {
+                MessageBox.Show("No steps found.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = $"{(enable ? "Enabling" : "Disabling")} all steps...",
+                Work = (worker, args) =>
+                {
+                    foreach (var step in steps)
+                    {
+                        if (step.Enabled != enable)
+                        {
+                            Helpers.RegistrationHelper.UpdateStepStatus(m_org, step.StepId, enable);
+                            step.Enabled = enable;
+                        }
+                    }
+                },
+                PostWorkCallBack = evt =>
+                {
+                    foreach (var step in steps)
+                    {
+                        trvPlugins.RefreshNode(step.NodeId);
+                    }
+                    MessageBox.Show($"All steps have been {(enable ? "enabled" : "disabled")}.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            });
+        }
         #endregion Private Methods
 
         #region Private Classes
