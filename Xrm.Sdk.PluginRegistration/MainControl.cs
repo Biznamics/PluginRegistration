@@ -49,7 +49,7 @@ namespace Xrm.Sdk.PluginRegistration
 
         private const string SYSTEM_ERROR_CAPTION = "Microsoft Dynamics CRM";
         private const string SYSTEM_ERROR_MESSAGE = "The selected item is required for the Microsoft Dynamics CRM system to work correctly.";
-        private const string EXCEL_ORG_NAME = "Plugin Registration Tool in XrmToolBox";
+        private const string EPPLUS_LICENSE_ORG_NAME = "Plugin Registration Tool in XrmToolBox";
         private static CrmEntitySorter m_entitySorter;
         private ConnectionDetail m_con;
         private CrmViewType m_currentView;
@@ -965,7 +965,7 @@ namespace Xrm.Sdk.PluginRegistration
             }
             if (string.Equals(fileInfo.Extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
             {
-                ExcelPackage.License.SetNonCommercialOrganization(EXCEL_ORG_NAME); 
+                ExcelPackage.License.SetNonCommercialOrganization(EPPLUS_LICENSE_ORG_NAME); 
 
                 using (var xlPackage = new ExcelPackage(fileInfo))
                 {
@@ -1022,7 +1022,7 @@ namespace Xrm.Sdk.PluginRegistration
 
             if (string.Equals(fileInfo.Extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
             {
-                ExcelPackage.License.SetNonCommercialOrganization(EXCEL_ORG_NAME);
+                ExcelPackage.License.SetNonCommercialOrganization(EPPLUS_LICENSE_ORG_NAME);
 
                 using (var xlPackage = new ExcelPackage(fileInfo))
                 {
