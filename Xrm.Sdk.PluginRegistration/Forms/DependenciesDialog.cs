@@ -11,6 +11,10 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 {
     public partial class DependenciesDialog : Form
     {
+        private const int WorkflowTypeDefinition = 1; // 1 = Definition (Process)
+        private const int WorkflowStateDraft = 0;     // 0 = Draft
+        private const int WorkflowStateActivated = 1; // 1 = Activated
+
         public DependenciesDialog(CrmPluginAssembly assembly)
         {
             InitializeComponent();
@@ -161,8 +165,8 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                     {
                         Conditions =
                         {
-                            new ConditionExpression("type", ConditionOperator.Equal, 1),
-                            new ConditionExpression("statecode", ConditionOperator.In, new object[] {0,1})
+                            new ConditionExpression("type", ConditionOperator.Equal, WorkflowTypeDefinition),
+                            new ConditionExpression("statecode", ConditionOperator.In, new object[] { WorkflowStateDraft, WorkflowStateActivated })
                         }
                     }
                 };
