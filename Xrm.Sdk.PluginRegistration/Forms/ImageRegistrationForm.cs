@@ -32,7 +32,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private CrmPluginImage m_currentImage;
         private CrmOrganization m_org;
         private MainControl m_orgControl;
-        private ToolTip _toolTip; // Tooltip for "Pre" checkbox when it is disabled for Create message/
+        private ToolTip _toolTip; // Tooltip for "Pre" checkbox when it is disabled for Create message
 
         #endregion Private Fields
 
