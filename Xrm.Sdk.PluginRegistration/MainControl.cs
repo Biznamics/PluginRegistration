@@ -50,6 +50,12 @@ namespace Xrm.Sdk.PluginRegistration
         private const string SYSTEM_ERROR_CAPTION = "Microsoft Dynamics CRM";
         private const string SYSTEM_ERROR_MESSAGE = "The selected item is required for the Microsoft Dynamics CRM system to work correctly.";
         private const string EPPLUS_LICENSE_ORG_NAME = "Plugin Registration Tool in XrmToolBox";
+
+        private const string ENABLE_ALL_STEPS_CONFIRMATION = "Are you sure you want to enable all steps for the selected item?";
+        private const string DISABLE_ALL_STEPS_CONFIRMATION = "Are you sure you want to disable all steps for the selected item?";
+        private const string ENABLE_ALL_STEPS_CAPTION = "Enable All Steps";
+        private const string DISABLE_ALL_STEPS_CAPTION = "Disable All Steps";
+
         private static CrmEntitySorter m_entitySorter;
         private ConnectionDetail m_con;
         private CrmViewType m_currentView;
@@ -2423,16 +2429,55 @@ namespace Xrm.Sdk.PluginRegistration
             }
         }
 
+        private static bool ConfirmEnableDisableAllSteps(IWin32Window owner, bool enable)
+        {
+            return MessageBox.Show(owner,
+                       enable ? ENABLE_ALL_STEPS_CONFIRMATION : DISABLE_ALL_STEPS_CONFIRMATION,
+                       enable ? ENABLE_ALL_STEPS_CAPTION : DISABLE_ALL_STEPS_CAPTION,
+                       MessageBoxButtons.YesNo,
+                       MessageBoxIcon.Question,
+                       MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
         private void mnuContextNodeEnableAllSteps_Click(object sender, EventArgs e)
         {
+            if (!ConfirmEnableDisableAllSteps(this, true))
+            {
+                return;
+            }
+
             EnableDisableAllSteps(true);
         }
 
         private void mnuContextNodeDisableAllSteps_Click(object sender, EventArgs e)
         {
+            if (!ConfirmEnableDisableAllSteps(this, false))
+            {
+                return;
+            }
+
             EnableDisableAllSteps(false);
         }
 
+        private void toolEnableAllSteps_Click(object sender, EventArgs e)
+        {
+            if (!ConfirmEnableDisableAllSteps(this, true))
+            {
+                return;
+            }
+
+            EnableDisableAllSteps(true);
+        }
+
+        private void toolDisableAllSteps_Click(object sender, EventArgs e)
+        {
+            if (!ConfirmEnableDisableAllSteps(this, false))
+            {
+                return;
+            }
+
+            EnableDisableAllSteps(false);
+        }
         private void EnableDisableAllSteps(bool enable)
         {
             var node = trvPlugins.SelectedNode;
@@ -2986,6 +3031,6 @@ namespace Xrm.Sdk.PluginRegistration
             #endregion Private Methods
         }
 
-        #endregion Private Classes
+        #endregion Private Classes  
     }
 }
