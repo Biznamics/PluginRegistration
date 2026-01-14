@@ -54,7 +54,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.picInvalidSecureConfigurationId = new System.Windows.Forms.PictureBox();
             this.lblAccessDenied = new System.Windows.Forms.Label();
             this.picAccessDenied = new System.Windows.Forms.PictureBox();
-            this.txtSecureConfig = new System.Windows.Forms.TextBox();
+            this.txtSecureConfig = new System.Windows.Forms.RichTextBox();
             this.grpMode = new System.Windows.Forms.GroupBox();
             this.radModeSync = new System.Windows.Forms.RadioButton();
             this.radModeAsync = new System.Windows.Forms.RadioButton();
@@ -70,13 +70,13 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.radStagePreValidation = new System.Windows.Forms.RadioButton();
             this.radStagePostOperationDeprecated = new System.Windows.Forms.RadioButton();
             this.grpUnsecureConfig = new System.Windows.Forms.GroupBox();
-            this.txtUnsecureConfiguration = new System.Windows.Forms.TextBox();
+            this.txtUnsecureConfiguration = new System.Windows.Forms.RichTextBox();
             this.radStagePreOperation = new System.Windows.Forms.RadioButton();
             this.radStagePostOperation = new System.Windows.Forms.RadioButton();
             this.grpStage = new System.Windows.Forms.GroupBox();
             this.chkDeleteAsyncOperationIfSuccessful = new System.Windows.Forms.CheckBox();
             this.grpDescription = new System.Windows.Forms.GroupBox();
-            this.txtDescription = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.RichTextBox();
             this.grpGeneral.SuspendLayout();
             this.grpSecureConfiguration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picInvalidSecureConfigurationId)).BeginInit();
@@ -390,11 +390,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSecureConfig.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSecureConfig.Location = new System.Drawing.Point(6, 19);
-            this.txtSecureConfig.Multiline = true;
+            this.txtSecureConfig.MaxLength = 1073741823;
             this.txtSecureConfig.Name = "txtSecureConfig";
-            this.txtSecureConfig.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtSecureConfig.Size = new System.Drawing.Size(419, 142);
             this.txtSecureConfig.TabIndex = 1;
+            this.txtSecureConfig.Text = "";
             this.txtSecureConfig.WordWrap = false;
             this.txtSecureConfig.Enter += new System.EventHandler(this.longText_Enter);
             this.txtSecureConfig.Leave += new System.EventHandler(this.longText_Leave);
@@ -584,11 +584,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUnsecureConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUnsecureConfiguration.Location = new System.Drawing.Point(6, 19);
-            this.txtUnsecureConfiguration.Multiline = true;
+            this.txtUnsecureConfiguration.MaxLength = 1073741823;
             this.txtUnsecureConfiguration.Name = "txtUnsecureConfiguration";
-            this.txtUnsecureConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtUnsecureConfiguration.Size = new System.Drawing.Size(419, 101);
             this.txtUnsecureConfiguration.TabIndex = 1;
+            this.txtUnsecureConfiguration.Text = "";
             this.txtUnsecureConfiguration.WordWrap = false;
             this.txtUnsecureConfiguration.Enter += new System.EventHandler(this.longText_Enter);
             this.txtUnsecureConfiguration.Leave += new System.EventHandler(this.longText_Leave);
@@ -660,11 +660,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescription.Location = new System.Drawing.Point(4, 15);
-            this.txtDescription.Multiline = true;
+            this.txtDescription.MaxLength = 1073741823;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtDescription.Size = new System.Drawing.Size(423, 60);
             this.txtDescription.TabIndex = 1;
+            this.txtDescription.Text = "";
             this.txtDescription.Enter += new System.EventHandler(this.longText_Enter);
             this.txtDescription.Leave += new System.EventHandler(this.longText_Leave);
             // 
@@ -708,11 +708,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpInvocation.ResumeLayout(false);
             this.grpInvocation.PerformLayout();
             this.grpUnsecureConfig.ResumeLayout(false);
-            this.grpUnsecureConfig.PerformLayout();
             this.grpStage.ResumeLayout(false);
             this.grpStage.PerformLayout();
             this.grpDescription.ResumeLayout(false);
-            this.grpDescription.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -733,7 +731,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.ComboBox cmbUsers;
         private System.Windows.Forms.GroupBox grpSecureConfiguration;
-        private System.Windows.Forms.TextBox txtSecureConfig;
+        private System.Windows.Forms.RichTextBox txtSecureConfig;
         private System.Windows.Forms.GroupBox grpMode;
         private System.Windows.Forms.RadioButton radModeAsync;
         private System.Windows.Forms.RadioButton radModeSync;
@@ -752,7 +750,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private System.Windows.Forms.RadioButton radStagePostOperationDeprecated;
         private System.Windows.Forms.GroupBox grpStage;
         private System.Windows.Forms.GroupBox grpUnsecureConfig;
-        private System.Windows.Forms.TextBox txtUnsecureConfiguration;
+        private System.Windows.Forms.RichTextBox txtUnsecureConfiguration;
         private System.Windows.Forms.Label lblAccessDenied;
         private System.Windows.Forms.PictureBox picAccessDenied;
         private Xrm.Sdk.PluginRegistration.Controls.CrmAttributeSelectionControl crmFilteringAttributes;
@@ -761,7 +759,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private System.Windows.Forms.RadioButton radStagePreOperation;
         private System.Windows.Forms.CheckBox chkDeleteAsyncOperationIfSuccessful;
         private System.Windows.Forms.GroupBox grpDescription;
-        private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.RichTextBox txtDescription;
         private System.Windows.Forms.Label lblEventHandler;
         private System.Windows.Forms.LinkLabel lnkInvalidSecureConfigurationId;
         private System.Windows.Forms.Label lblInvalidSecureConfigurationId;
