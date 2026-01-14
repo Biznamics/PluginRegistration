@@ -1201,9 +1201,10 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
                 throw new ArgumentNullException("org");
             }
 
-            //Clear the assemblies list since we are reloading from scratch
+            //Clear the packages list since we are reloading from scratch
             org.ClearPackages();
 
+            //Skip loading packages for versions before v9.2
             if (org.ConnectionDetail.OrganizationMajorVersion < 9
                 || org.ConnectionDetail.OrganizationMajorVersion == 9
                 && org.ConnectionDetail.OrganizationMinorVersion < 2)
