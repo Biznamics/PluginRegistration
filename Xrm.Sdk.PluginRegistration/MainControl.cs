@@ -1523,6 +1523,9 @@ namespace Xrm.Sdk.PluginRegistration
             tsmiCheckActiveLayer.Visible = false;
             toolStripSeparator3.Visible = false;
 
+            mnuContextNodeEnableAllSteps.Visible = false;
+            mnuContextNodeDisableAllSteps.Visible = false;
+
             toolEnable.Visible = false;
             mnuContextNodeEnable.Visible = false;
 
@@ -1570,6 +1573,9 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPlugin>(CrmPlugin.Columns, assembly.Plugins);
+
+                        mnuContextNodeEnableAllSteps.Visible = true;
+                        mnuContextNodeDisableAllSteps.Visible = true;
                     }
                     break;
 
@@ -1587,6 +1593,9 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginAssembly>(CrmPluginAssembly.Columns, package.Assemblies);
+
+                        mnuContextNodeEnableAllSteps.Visible = true;
+                        mnuContextNodeDisableAllSteps.Visible = true;
                     }
                     break;
 
@@ -1597,6 +1606,9 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, plugin.Steps);
+
+                        mnuContextNodeEnableAllSteps.Visible = true;
+                        mnuContextNodeDisableAllSteps.Visible = true;
                     }
                     break;
 
