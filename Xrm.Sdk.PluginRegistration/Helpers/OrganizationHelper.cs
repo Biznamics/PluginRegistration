@@ -241,7 +241,7 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
 
             foreach (var assembly in org.OrganizationService.RetrieveMultipleAllPages(query).Entities.Select(x => Magic.CastTo<PluginAssembly>(x)))
             {
-                if (assembly.PackageId != null)
+                if (assembly.PackageId != null && org.Packages.ContainsKey(assembly.PackageId.Id))
                 {
                     var package = org.Packages[assembly.PackageId.Id];
                     if (package.Assemblies.ContainsKey(assembly.PluginAssemblyId.Value))
@@ -599,16 +599,13 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
                 }
                 LoadMessageEntities(org, messages);
 
-                if (org.ConnectionDetail.UseOnline)
+                //Initialize list of packages
+                if (prog != null)
                 {
-                    //Initialize list of packages
-                    if (prog != null)
-                    {
-                        prog.Increment("Loading Packages");
-                    }
-                    LoadPackages(org);
+                    prog.Increment("Loading Packages");
                 }
-
+                LoadPackages(org);
+                
                 //Initialize list of assemblies
                 if (prog != null)
                 {
@@ -1204,15 +1201,22 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
                 throw new ArgumentNullException("org");
             }
 
+            //Clear the assemblies list since we are reloading from scratch
+            org.ClearPackages();
+
+            if (org.ConnectionDetail.OrganizationMajorVersion < 9
+                || org.ConnectionDetail.OrganizationMajorVersion == 9
+                && org.ConnectionDetail.OrganizationMinorVersion < 2)
+            {
+                return;
+            }
+
             var query = new QueryExpression
             {
                 ColumnSet = GetColumnSet(PluginPackage.EntityLogicalName),
                 Criteria = CreatePackageFilter(),
                 EntityName = PluginPackage.EntityLogicalName
             };
-
-            //Clear the assemblies list since we are reloading from scratch
-            org.ClearPackages();
 
             foreach (var package in org.OrganizationService.RetrieveMultipleAllPages(query).Entities.Select(x => Magic.CastTo<PluginPackage>(x)))
             {
