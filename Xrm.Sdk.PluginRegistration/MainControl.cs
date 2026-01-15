@@ -1523,6 +1523,9 @@ namespace Xrm.Sdk.PluginRegistration
             tsmiCheckActiveLayer.Visible = false;
             toolStripSeparator3.Visible = false;
 
+            toolUpdate.Enabled = false;
+            mnuContextNodeUpdate.Enabled = false;
+
             mnuContextNodeEnableAllSteps.Visible = false;
             mnuContextNodeDisableAllSteps.Visible = false;
 
@@ -1552,7 +1555,9 @@ namespace Xrm.Sdk.PluginRegistration
                         CrmServiceEndpoint serviceEndpoint = (CrmServiceEndpoint)node;
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         btnSave.Enabled = false;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, serviceEndpoint.Steps);
@@ -1565,7 +1570,9 @@ namespace Xrm.Sdk.PluginRegistration
                         CrmPluginAssembly assembly = (CrmPluginAssembly)node;
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         tsmiAddToSolution.Visible = true;
                         tsmiCheckActiveLayer.Visible = true;
                         toolStripSeparator3.Visible = true;
@@ -1585,7 +1592,9 @@ namespace Xrm.Sdk.PluginRegistration
                         CrmPluginPackage package = (CrmPluginPackage)node;
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         tsmiAddToSolution.Visible = true;
                         tsmiCheckActiveLayer.Visible = true;
                         toolStripSeparator3.Visible = true;
@@ -1606,6 +1615,9 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, plugin.Steps);
+
+                        toolUpdate.Enabled = true;
+                        mnuContextNodeUpdate.Enabled = true;
 
                         mnuContextNodeEnableAllSteps.Visible = true;
                         mnuContextNodeDisableAllSteps.Visible = true;
@@ -1629,7 +1641,9 @@ namespace Xrm.Sdk.PluginRegistration
                         }
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
 
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginImage>(CrmPluginImage.Columns, step.Images);
@@ -1639,7 +1653,9 @@ namespace Xrm.Sdk.PluginRegistration
                 case CrmTreeNodeType.Image:
                     {
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         CrmPluginImage image = (CrmPluginImage)node;
                         btnSave.Enabled = false;
                         //Load the data table and display information
@@ -1689,7 +1705,9 @@ namespace Xrm.Sdk.PluginRegistration
                     CrmServiceEndpoint webhook = (CrmServiceEndpoint)node;
 
                     toolUpdate.Visible = true;
+                    toolUpdate.Enabled = true;
                     mnuContextNodeUpdate.Visible = true;
+                    mnuContextNodeUpdate.Enabled = true;
                     btnSave.Enabled = false;
                     //Load the data table and display information
                     gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, webhook.Steps);
@@ -1992,6 +2010,11 @@ namespace Xrm.Sdk.PluginRegistration
 
         private void toolUpdate_Click(object sender, EventArgs e)
         {
+            if (trvPlugins.SelectedNode == null)
+            {
+                return;
+            }
+
             if (IsNodeSystemItem(trvPlugins.SelectedNode))
             {
                 ShowSystemItemError("The assembly cannot be updated.");
