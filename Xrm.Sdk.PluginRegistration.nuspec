@@ -37,9 +37,10 @@ UX &amp; stability improvements
 
 		<tags>XrmToolBox Plugins PluginRegistration</tags>
 		<dependencies>
-			<dependency id="XrmToolBoxPackage" version="1.2024.5.1" />
+			<dependency id="XrmToolBoxPackage" version="1.2025.10.74" />
 			<dependency id="CsvHelper" version="31.1.0"/>
-			<dependency id="EPPlus" version="7.1.2"/>
+			<dependency id="EPPlus" version="8.4.1"/>
+			<dependency id="EPPlus.System.Drawing" version="8.4.0"/>
 		</dependencies>
 	</metadata>
 	<files>
