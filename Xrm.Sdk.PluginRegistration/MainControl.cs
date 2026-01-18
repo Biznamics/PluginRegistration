@@ -50,6 +50,12 @@ namespace Xrm.Sdk.PluginRegistration
         private const string SYSTEM_ERROR_CAPTION = "Microsoft Dynamics CRM";
         private const string SYSTEM_ERROR_MESSAGE = "The selected item is required for the Microsoft Dynamics CRM system to work correctly.";
         private const string EPPLUS_LICENSE_ORG_NAME = "Plugin Registration Tool in XrmToolBox";
+
+        private const string ENABLE_ALL_STEPS_CONFIRMATION = "Are you sure you want to enable all steps for the selected item?";
+        private const string DISABLE_ALL_STEPS_CONFIRMATION = "Are you sure you want to disable all steps for the selected item?";
+        private const string ENABLE_ALL_STEPS_CAPTION = "Enable All Steps";
+        private const string DISABLE_ALL_STEPS_CAPTION = "Disable All Steps";
+
         private static CrmEntitySorter m_entitySorter;
         private ConnectionDetail m_con;
         private CrmViewType m_currentView;
@@ -1517,6 +1523,14 @@ namespace Xrm.Sdk.PluginRegistration
             tsmiCheckActiveLayer.Visible = false;
             toolStripSeparator3.Visible = false;
 
+            toolUpdate.Enabled = false;
+            mnuContextNodeUpdate.Enabled = false;
+
+            mnuContextNodeEnableAllSteps.Visible = false;
+            mnuContextNodeDisableAllSteps.Visible = false;
+            toolEnableAllSteps.Visible = false;
+            toolDisableAllSteps.Visible = false;
+
             toolEnable.Visible = false;
             mnuContextNodeEnable.Visible = false;
 
@@ -1543,7 +1557,9 @@ namespace Xrm.Sdk.PluginRegistration
                         CrmServiceEndpoint serviceEndpoint = (CrmServiceEndpoint)node;
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         btnSave.Enabled = false;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, serviceEndpoint.Steps);
@@ -1556,7 +1572,9 @@ namespace Xrm.Sdk.PluginRegistration
                         CrmPluginAssembly assembly = (CrmPluginAssembly)node;
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         tsmiAddToSolution.Visible = true;
                         tsmiCheckActiveLayer.Visible = true;
                         toolStripSeparator3.Visible = true;
@@ -1564,6 +1582,9 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPlugin>(CrmPlugin.Columns, assembly.Plugins);
+
+                        mnuContextNodeEnableAllSteps.Visible = true;
+                        mnuContextNodeDisableAllSteps.Visible = true;
                     }
                     break;
 
@@ -1573,7 +1594,9 @@ namespace Xrm.Sdk.PluginRegistration
                         CrmPluginPackage package = (CrmPluginPackage)node;
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         tsmiAddToSolution.Visible = true;
                         tsmiCheckActiveLayer.Visible = true;
                         toolStripSeparator3.Visible = true;
@@ -1581,6 +1604,9 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginAssembly>(CrmPluginAssembly.Columns, package.Assemblies);
+
+                        mnuContextNodeEnableAllSteps.Visible = true;
+                        mnuContextNodeDisableAllSteps.Visible = true;
                     }
                     break;
 
@@ -1591,6 +1617,12 @@ namespace Xrm.Sdk.PluginRegistration
                         btnSave.Enabled = true;
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, plugin.Steps);
+
+                        toolUpdate.Enabled = true;
+                        mnuContextNodeUpdate.Enabled = true;
+
+                        mnuContextNodeEnableAllSteps.Visible = true;
+                        mnuContextNodeDisableAllSteps.Visible = true;
                     }
                     break;
 
@@ -1611,7 +1643,9 @@ namespace Xrm.Sdk.PluginRegistration
                         }
 
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
 
                         //Load the data table and display information
                         gridTable = OrganizationHelper.CreateDataTable<CrmPluginImage>(CrmPluginImage.Columns, step.Images);
@@ -1621,7 +1655,9 @@ namespace Xrm.Sdk.PluginRegistration
                 case CrmTreeNodeType.Image:
                     {
                         toolUpdate.Visible = true;
+                        toolUpdate.Enabled = true;
                         mnuContextNodeUpdate.Visible = true;
+                        mnuContextNodeUpdate.Enabled = true;
                         CrmPluginImage image = (CrmPluginImage)node;
                         btnSave.Enabled = false;
                         //Load the data table and display information
@@ -1636,42 +1672,59 @@ namespace Xrm.Sdk.PluginRegistration
                         mnuContextNodeUnregister.Enabled = false;
                         btnSave.Enabled = false;
                         CrmTreeNode treeNode = (CrmTreeNode)node;
-                        switch (treeNode.ChildNodeType)
-                        {
-                            case CrmTreeNodeType.Message:
-                                {
-                                    gridTable = OrganizationHelper.CreateDataTable<CrmMessage>(CrmMessage.Columns,
-                                        (CrmMessage[])treeNode.ToEntityArray(CrmTreeNodeType.Message));
-                                }
-                                break;
 
-                            case CrmTreeNodeType.MessageEntity:
-                                {
-                                    gridTable = OrganizationHelper.CreateDataTable<CrmMessageEntity>(CrmMessageEntity.Columns,
-                                        (CrmMessageEntity[])treeNode.ToEntityArray(CrmTreeNodeType.MessageEntity));
-                                }
-                                break;
+                         // Allow enable/disable all steps when a user selects an Entity/Message grouping node
+                         // (this is what "view by entity/message" uses in the tree)
+                         if (treeNode.ChildNodeType == CrmTreeNodeType.Step
+                             || treeNode.ChildNodeType == CrmTreeNodeType.Message
+                             || treeNode.ChildNodeType == CrmTreeNodeType.MessageEntity)
+                         {
+                             mnuContextNodeEnableAllSteps.Visible = true;
+                             mnuContextNodeDisableAllSteps.Visible = true;
 
-                            case CrmTreeNodeType.Step:
-                                {
-                                    gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns,
-                                        (CrmPluginStep[])treeNode.ToEntityArray(CrmTreeNodeType.Step));
-                                }
-                                break;
+                            // Toolbar buttons should behave the same way
+                            toolEnableAllSteps.Visible = true;
+                            toolDisableAllSteps.Visible = true;
+                         }
 
-                            default:
-                                gridTable = null;
-                                break;
-                        }
-                    }
-                    break;
+                         switch (treeNode.ChildNodeType)
+                         {
+                             case CrmTreeNodeType.Message:
+                                 {
+                                     gridTable = OrganizationHelper.CreateDataTable<CrmMessage>(CrmMessage.Columns,
+                                         (CrmMessage[])treeNode.ToEntityArray(CrmTreeNodeType.Message));
+                                 }
+                                 break;
+
+                             case CrmTreeNodeType.MessageEntity:
+                                 {
+                                     gridTable = OrganizationHelper.CreateDataTable<CrmMessageEntity>(CrmMessageEntity.Columns,
+                                         (CrmMessageEntity[])treeNode.ToEntityArray(CrmTreeNodeType.MessageEntity));
+                                 }
+                                 break;
+
+                             case CrmTreeNodeType.Step:
+                                 {
+                                     gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns,
+                                         (CrmPluginStep[])treeNode.ToEntityArray(CrmTreeNodeType.Step));
+                                 }
+                                 break;
+
+                             default:
+                                 gridTable = null;
+                                 break;
+                         }
+                     }
+                     break;
 
                 case CrmTreeNodeType.WebHook:
                     //todo: webhook logic
                     CrmServiceEndpoint webhook = (CrmServiceEndpoint)node;
 
                     toolUpdate.Visible = true;
+                    toolUpdate.Enabled = true;
                     mnuContextNodeUpdate.Visible = true;
+                    mnuContextNodeUpdate.Enabled = true;
                     btnSave.Enabled = false;
                     //Load the data table and display information
                     gridTable = OrganizationHelper.CreateDataTable<CrmPluginStep>(CrmPluginStep.Columns, webhook.Steps);
@@ -1974,6 +2027,11 @@ namespace Xrm.Sdk.PluginRegistration
 
         private void toolUpdate_Click(object sender, EventArgs e)
         {
+            if (trvPlugins.SelectedNode == null)
+            {
+                return;
+            }
+
             if (IsNodeSystemItem(trvPlugins.SelectedNode))
             {
                 ShowSystemItemError("The assembly cannot be updated.");
@@ -2423,22 +2481,61 @@ namespace Xrm.Sdk.PluginRegistration
             }
         }
 
+        private static bool ConfirmEnableDisableAllSteps(IWin32Window owner, bool enable)
+        {
+            return MessageBox.Show(owner,
+                       enable ? ENABLE_ALL_STEPS_CONFIRMATION : DISABLE_ALL_STEPS_CONFIRMATION,
+                       enable ? ENABLE_ALL_STEPS_CAPTION : DISABLE_ALL_STEPS_CAPTION,
+                       MessageBoxButtons.YesNo,
+                       MessageBoxIcon.Question,
+                       MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+        }
+
         private void mnuContextNodeEnableAllSteps_Click(object sender, EventArgs e)
         {
+            if (!ConfirmEnableDisableAllSteps(this, true))
+            {
+                return;
+            }
+
             EnableDisableAllSteps(true);
         }
 
         private void mnuContextNodeDisableAllSteps_Click(object sender, EventArgs e)
         {
+            if (!ConfirmEnableDisableAllSteps(this, false))
+            {
+                return;
+            }
+
             EnableDisableAllSteps(false);
         }
 
+        private void toolEnableAllSteps_Click(object sender, EventArgs e)
+        {
+            if (!ConfirmEnableDisableAllSteps(this, true))
+            {
+                return;
+            }
+
+            EnableDisableAllSteps(true);
+        }
+
+        private void toolDisableAllSteps_Click(object sender, EventArgs e)
+        {
+            if (!ConfirmEnableDisableAllSteps(this, false))
+            {
+                return;
+            }
+
+            EnableDisableAllSteps(false);
+        }
         private void EnableDisableAllSteps(bool enable)
         {
             var node = trvPlugins.SelectedNode;
             if (node == null) return;
 
-            List<Wrappers.CrmPluginStep> steps = new List<Wrappers.CrmPluginStep>();
+            var steps = new List<Wrappers.CrmPluginStep>();
 
             if (node.NodeType == CrmTreeNodeType.Package)
             {
@@ -2458,9 +2555,19 @@ namespace Xrm.Sdk.PluginRegistration
                 var plugin = (Wrappers.CrmPlugin)node;
                 steps.AddRange(plugin.Steps.Values);
             }
+            else if (node.NodeType == CrmTreeNodeType.Message || node.NodeType == CrmTreeNodeType.MessageEntity)
+            {
+                // In "view by entity/message", the tree nodes are grouping nodes (internal CrmTreeNode)
+                // and they can directly expose their step children via ToEntityArray(...)
+                var treeNode = node as CrmTreeNode;
+                if (treeNode != null)
+                {
+                    AddGroupingNodeSteps(treeNode, steps);
+                }
+            }
             else
             {
-                MessageBox.Show("Please select a package, plugin assembly, or class.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please select a package, plugin assembly, class, message, or entity.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -2493,6 +2600,42 @@ namespace Xrm.Sdk.PluginRegistration
                     MessageBox.Show($"All steps have been {(enable ? "enabled" : "disabled")}.", "Enable/Disable All Steps", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             });
+        }
+
+        private static void AddGroupingNodeSteps(CrmTreeNode groupingNode, List<Wrappers.CrmPluginStep> steps)
+        {
+            if (groupingNode == null)
+            {
+                throw new ArgumentNullException("groupingNode");
+            }
+            if (steps == null)
+            {
+                throw new ArgumentNullException("steps");
+            }
+
+            switch (groupingNode.ChildNodeType)
+            {
+                case CrmTreeNodeType.Step:
+                    steps.AddRange(groupingNode.ToEntityArray(CrmTreeNodeType.Step).Cast<CrmPluginStep>());
+                    break;
+
+                case CrmTreeNodeType.Message:
+                    foreach (CrmTreeNode child in groupingNode.NodeChildren.Cast<CrmTreeNode>())
+                    {
+                        AddGroupingNodeSteps(child, steps);
+                    }
+                    break;
+
+                case CrmTreeNodeType.MessageEntity:
+                    foreach (CrmTreeNode child in groupingNode.NodeChildren.Cast<CrmTreeNode>())
+                    {
+                        AddGroupingNodeSteps(child, steps);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
         #endregion Private Methods
 
@@ -2986,6 +3129,6 @@ namespace Xrm.Sdk.PluginRegistration
             #endregion Private Methods
         }
 
-        #endregion Private Classes
+        #endregion Private Classes  
     }
 }

@@ -88,10 +88,10 @@ namespace Xrm.Sdk.PluginRegistration
             this.imlEnableImages = new System.Windows.Forms.ImageList(this.components);
             this.splitterDisplay = new System.Windows.Forms.SplitContainer();
             this.grpPlugins = new System.Windows.Forms.GroupBox();
+            this.trvPlugins = new Xrm.Sdk.PluginRegistration.Controls.CrmTreeControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.propGridEntity = new System.Windows.Forms.PropertyGrid();
             this.btnSave = new System.Windows.Forms.Button();
-            this.trvPlugins = new Xrm.Sdk.PluginRegistration.Controls.CrmTreeControl();
             this.mnuContextNode.SuspendLayout();
             this.mnuContextGeneral.SuspendLayout();
             this.grpGrid.SuspendLayout();
@@ -524,6 +524,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolEnableAllSteps.Size = new System.Drawing.Size(118, 28);
             this.toolEnableAllSteps.Text = "Enable All Steps";
             this.toolEnableAllSteps.ToolTipText = "Enable All Steps on a plugin assembly of a particular plugin";
+            this.toolEnableAllSteps.Click += new System.EventHandler(this.toolEnableAllSteps_Click);
             // 
             // toolDisableAllSteps
             // 
@@ -532,6 +533,7 @@ namespace Xrm.Sdk.PluginRegistration
             this.toolDisableAllSteps.Size = new System.Drawing.Size(118, 28);
             this.toolDisableAllSteps.Text = "Disable all steps";
             this.toolDisableAllSteps.ToolTipText = "Disable all steps on an assembly or a step";
+            this.toolDisableAllSteps.Click += new System.EventHandler(this.toolDisableAllSteps_Click);
             // 
             // toolCommonSep2
             // 
@@ -550,7 +552,7 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolSearch.Name = "toolSearch";
-            this.toolSearch.Size = new System.Drawing.Size(46, 28);
+            this.toolSearch.Size = new System.Drawing.Size(46, 19);
             this.toolSearch.Text = "&Search";
             this.toolSearch.Click += new System.EventHandler(this.toolSearch_Click);
             // 
@@ -563,7 +565,7 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolExport.Name = "toolExport";
-            this.toolExport.Size = new System.Drawing.Size(45, 28);
+            this.toolExport.Size = new System.Drawing.Size(45, 19);
             this.toolExport.Text = "E&xport";
             this.toolExport.ToolTipText = "Export to Excel";
             this.toolExport.Click += new System.EventHandler(this.toolExport_Click);
@@ -577,7 +579,7 @@ namespace Xrm.Sdk.PluginRegistration
             // 
             this.toolClose.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolClose.Name = "toolClose";
-            this.toolClose.Size = new System.Drawing.Size(40, 28);
+            this.toolClose.Size = new System.Drawing.Size(40, 19);
             this.toolClose.Text = "Clos&e";
             this.toolClose.ToolTipText = "Close Tool (Ctrl+F4)";
             this.toolClose.Click += new System.EventHandler(this.toolClose_Click);
@@ -634,6 +636,26 @@ namespace Xrm.Sdk.PluginRegistration
             this.grpPlugins.TabStop = false;
             this.grpPlugins.Text = "Registered Plugins && Custom Workflow Activities";
             // 
+            // trvPlugins
+            // 
+            this.trvPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trvPlugins.AutoExpand = false;
+            this.trvPlugins.ContextMenuStrip = this.mnuContextNode;
+            this.trvPlugins.CrmTreeNodeSorter = null;
+            this.trvPlugins.LabelEdit = true;
+            this.trvPlugins.Location = new System.Drawing.Point(6, 14);
+            this.trvPlugins.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.trvPlugins.Name = "trvPlugins";
+            this.trvPlugins.SelectedNode = null;
+            this.trvPlugins.ShowNodeToolTips = false;
+            this.trvPlugins.Size = new System.Drawing.Size(550, 423);
+            this.trvPlugins.TabIndex = 0;
+            this.trvPlugins.DoubleClick += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeEventArgs>(this.trvPlugins_DoubleClick);
+            this.trvPlugins.NodeRemoved += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeEventArgs>(this.trvPlugins_NodeRemoved);
+            this.trvPlugins.SelectionChanged += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeTreeEventArgs>(this.trvPlugins_SelectionChanged);
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -668,26 +690,6 @@ namespace Xrm.Sdk.PluginRegistration
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // trvPlugins
-            // 
-            this.trvPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trvPlugins.AutoExpand = false;
-            this.trvPlugins.ContextMenuStrip = this.mnuContextNode;
-            this.trvPlugins.CrmTreeNodeSorter = null;
-            this.trvPlugins.LabelEdit = true;
-            this.trvPlugins.Location = new System.Drawing.Point(6, 14);
-            this.trvPlugins.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.trvPlugins.Name = "trvPlugins";
-            this.trvPlugins.SelectedNode = null;
-            this.trvPlugins.ShowNodeToolTips = false;
-            this.trvPlugins.Size = new System.Drawing.Size(550, 423);
-            this.trvPlugins.TabIndex = 0;
-            this.trvPlugins.DoubleClick += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeEventArgs>(this.trvPlugins_DoubleClick);
-            this.trvPlugins.NodeRemoved += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeEventArgs>(this.trvPlugins_NodeRemoved);
-            this.trvPlugins.SelectionChanged += new System.EventHandler<Xrm.Sdk.PluginRegistration.Controls.CrmTreeNodeTreeEventArgs>(this.trvPlugins_SelectionChanged);
             // 
             // MainControl
             // 

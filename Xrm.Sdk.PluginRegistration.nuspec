@@ -18,23 +18,29 @@
 		</description>
 		<summary>The Classic Microsoft Dynamics CRM tool, now in the XrmToolBox suite</summary>
 		<releaseNotes>
-			New features
-			- #46: Bulk enable/disable all steps for a plugin type or an entire assembly
-			- #78: Added a refresh option for available messages (including newly added Custom Actions) without restarting the tool
-			- #84: Export now includes Webhook (Service Endpoint) information
-			- #150: Show dependencies for a plugin assembly (button + context menu entry)
+New features
+- #46: Bulk enable/disable all steps for a plugin type or an entire assembly
+- #78: Added a refresh option for available messages (including newly added Custom Actions) without restarting the tool
+- #84: Export now includes Webhook (Service Endpoint) information
+- #150: Show dependencies for a plugin assembly (button + context menu entry)
 
-			UX &amp; stability improvements
-			- #66: Prevent invalid image registration by disabling Pre-Image for Create steps (Create does not support this image type)
-			- #129: Prevent accidental "Save &amp; Close" when pressing Enter in the Step editor
-			- #146: Step Configuration editor improvements: monospaced font for JSON/XML, resizable dialog with splitter, word wrap off, and safer default-button behavior to avoid accidental updates
+UX &amp; stability improvements
+- #66: Prevent invalid image registration by disabling Pre-Image for Create steps (Create does not support this image type)
+- #129: Prevent accidental "Save &amp; Close" when pressing Enter in the Step editor
+- #146: Step Configuration editor improvements: monospaced font for JSON/XML, resizable dialog with splitter, word wrap off, and safer default-button behavior to avoid accidental updates
+- #156: Input fields "Unsecure configuration" and "Secure configuration" have maximum number of characters
+- #154: Confirmation dialogs on Enable/Disable all steps operations
+- #155: Toolbar button fixes
+- #158: GCC High error when loading Plugin Packages
+- #160: Null Reference Exception on Update button
 		</releaseNotes>
 
 		<tags>XrmToolBox Plugins PluginRegistration</tags>
 		<dependencies>
-			<dependency id="XrmToolBoxPackage" version="1.2024.5.1" />
+			<dependency id="XrmToolBoxPackage" version="1.2025.10.74" />
 			<dependency id="CsvHelper" version="31.1.0"/>
-			<dependency id="EPPlus" version="7.1.2"/>
+			<dependency id="EPPlus" version="8.4.1"/>
+			<dependency id="EPPlus.System.Drawing" version="8.4.0"/>
 		</dependencies>
 	</metadata>
 	<files>

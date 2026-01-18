@@ -212,9 +212,8 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
             var cols = GetColumnSet(PluginAssembly.EntityLogicalName);
             var filters = CreateAssemblyFilter(settings);
 
-            if (org.ConnectionDetail.OrganizationMajorVersion < 9
-                || org.ConnectionDetail.OrganizationMajorVersion == 9
-                && org.ConnectionDetail.OrganizationMinorVersion < 2)
+            var orgVer = new Version(org.ConnectionDetail.OrganizationVersion);
+            if (orgVer < new Version(9, 2))
             {
                 cols.Columns.Remove("packageid");
             }
