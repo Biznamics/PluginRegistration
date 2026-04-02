@@ -743,10 +743,14 @@ namespace Xrm.Sdk.PluginRegistration.Wrappers
             {
                 sdkStep.SdkMessageFilterId = new EntityReference(SdkMessageFilter.EntityLogicalName, MessageEntityId);
             }
-            // When MessageEntityId == Guid.Empty (Primary Entity = "none"):
-            // completely omit sdkmessagefilterid from the request rather than
-            // sending null, which triggers Dataverse dependency calculation errors
-            // in orgs with stale sdkmessagefilter records for deleted entities.
+            else if (StepId != Guid.Empty)
+            {
+                // Update case: explicit clear of sdkmessagefilterid when transitioning to "none"
+                // This ensures any existing SdkMessageFilter reference on the step is removed.
+                // For create cases (StepId == Guid.Empty) we continue to omit the field entirely
+                // to avoid triggering Dataverse dependency calculation errors for some orgs.
+                sdkStep.SdkMessageFilterId = null;
+            }
             sdkStep.ImpersonatingUserId = new EntityReference();
             sdkStep.ImpersonatingUserId.LogicalName = SystemUser.EntityLogicalName;
 
