@@ -1431,7 +1431,7 @@ namespace Xrm.Sdk.PluginRegistration.Helpers
                     break;
 
                 case "Create":
-                    if (org.ConnectionDetail.OrganizationMajorVersion > 9 || (org.ConnectionDetail.OrganizationMajorVersion == 9 && org.ConnectionDetail.OrganizationMinorVersion >= 2))
+                    if (org.ConnectionDetail.OrganizationMajorVersion > 9 || (org.ConnectionDetail.OrganizationMajorVersion == 9 && org.ConnectionDetail.OrganizationMinorVersion >= 1))
                     {
                         message.SupportsFilteredAttributes = true;
                     }
