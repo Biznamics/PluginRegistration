@@ -608,7 +608,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 
             if (Message.SupportsFilteredAttributes)
             {
-                if (crmFilteringAttributes.AllAttributes)
+                if (crmFilteringAttributes.AllAttributes && Message.Name != "Create")
                 {
                     if (MessageBox.Show("Registering steps filtering on updates of ALL attributes is highly discouraged for performance reasons.\nPlease reconsider this pattern.\n\nYes, I want to specify explicit attributes.\nNo, I don't care about performance now.", "Registration", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
