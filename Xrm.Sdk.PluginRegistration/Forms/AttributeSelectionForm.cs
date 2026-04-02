@@ -219,9 +219,78 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
+            // If the user pasted a comma-separated list of logical names, treat it as a direct selection
+            // rather than normal incremental filtering. This avoids disturbing normal filtering behavior
+            // for other uses of the filter box.
+            try
+            {
+                if (TrySelectAttributesFromPaste(txtFilter.Text))
+                {
+                    // Clear the filter text after handling the paste so normal filtering is not performed
+                    // and the user sees the selection result immediately.
+                    txtFilter.Text = string.Empty;
+                    return;
+                }
+            }
+            catch
+            {
+                // Fall back to normal filtering on any unexpected error
+            }
+
             searchThread?.Abort();
             searchThread = new Thread(DisplayAttributes);
             searchThread.Start();
+        }
+
+        private bool TrySelectAttributesFromPaste(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text) || !text.Contains(","))
+            {
+                return false;
+            }
+
+            // Split the pasted text into tokens and normalize to lower-case logical names
+            var tokens = text.Split(',')
+                             .Select(t => t.Trim())
+                             .Where(t => !string.IsNullOrEmpty(t))
+                             .Select(t => t.ToLowerInvariant())
+                             .ToArray();
+
+            if (tokens.Length == 0)
+            {
+                return false;
+            }
+
+            // Find matching items from the complete attribute list (not just the filtered view)
+            var matched = m_attributesList.Where(i => tokens.Contains(i.Name)).ToList();
+
+            if (matched.Count == 0)
+            {
+                // No matches found: do not interfere with normal filtering
+                return false;
+            }
+
+            // Replace current selection with the pasted selection: uncheck all then check matched
+            lsvAttributes.ItemChecked -= lsvAttributes_ItemChecked;
+            try
+            {
+                var matchedNames = new HashSet<string>(matched.Select(i => i.Name));
+                foreach (var item in m_attributesList)
+                {
+                    item.Checked = matchedNames.Contains(item.Name);
+                }
+            }
+            finally
+            {
+                lsvAttributes.ItemChecked += lsvAttributes_ItemChecked;
+            }
+
+            RefreshCurrentAndCounts();
+
+            // Ensure the UI displays the attributes (in case none were visible before)
+            DisplayAttributes();
+
+            return true;
         }
 
         #endregion Private Methods
