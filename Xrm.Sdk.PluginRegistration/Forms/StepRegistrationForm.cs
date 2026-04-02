@@ -606,7 +606,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 }
             }
 
-            if (Message.SupportsFilteredAttributes)
+            if (Message.SupportsFilteredAttributes && crmFilteringAttributes.Enabled)
             {
                 if (crmFilteringAttributes.AllAttributes && Message.Name != "Create")
                 {
@@ -623,7 +623,17 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             }
 
             step.MessageId = Message.MessageId;
-            step.MessageEntityId = MessageEntity.MessageEntityId;
+            // Only set MessageEntityId if primary entity is not "none"
+            // When primary entity is "none", leave MessageEntityId as Guid.Empty to avoid
+            // triggering Dataverse dependency calculation errors for stale sdkmessagefilter records
+            if (!string.Equals(MessageEntity?.PrimaryEntity, "none", StringComparison.InvariantCultureIgnoreCase))
+            {
+                step.MessageEntityId = MessageEntity.MessageEntityId;
+            }
+            else
+            {
+                step.MessageEntityId = Guid.Empty;
+            }
             step.AssemblyId = plugin?.AssemblyId ?? Guid.Empty;
             step.FilteringAttributes = crmFilteringAttributes.Attributes;
             step.PluginId = plugin?.PluginId ?? ((CrmServiceEndpoint)cmbWebhook.SelectedItem).EntityId;
