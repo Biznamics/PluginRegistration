@@ -17,7 +17,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace Xrm.Sdk.PluginRegistration.Forms
 {
@@ -38,7 +37,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private CrmOrganization m_org;
         private UpdateImageAttributesDelegate m_updateAttributes;
 
-        private Thread searchThread;
+        private Timer m_filterTimer;
 
         #endregion Private Fields
 
@@ -64,6 +63,15 @@ namespace Xrm.Sdk.PluginRegistration.Forms
 
             m_org = org;
             m_updateAttributes = updateAttributes;
+
+            // debounce timer for filter updates to replace Thread.Abort usage
+            m_filterTimer = new Timer { Interval = 300 };
+            m_filterTimer.Tick += (s, ea) =>
+            {
+                m_filterTimer.Stop();
+                DisplayAttributes();
+            };
+            this.FormClosed += AttributeSelectionForm_FormClosed;
 
             //Create a sorter for the listview. This will allow the list to be sorted by different columns
             lsvAttributes.ListViewItemSorter = new ListViewColumnSorter(0, lsvAttributes.Sorting);
@@ -162,10 +170,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             {
                 lsvAttributes.Items.Clear();
 
+                var filter = txtFilter.Text ?? string.Empty;
                 var items = m_attributesList.Where(i =>
-                    txtFilter.Text.Length == 0
-                    || i.Text.ToLower().IndexOf(txtFilter.Text.ToLower(), StringComparison.Ordinal) >= 0
-                    || i.Name.ToLower().IndexOf(txtFilter.Text.ToLower(), StringComparison.Ordinal) >= 0);
+                    filter.Length == 0
+                    || i.Text.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0
+                    || i.Name.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0);
 
                 lsvAttributes.ItemChecked -= lsvAttributes_ItemChecked;
                 lsvAttributes.Items.AddRange(items.ToArray());
@@ -237,9 +246,30 @@ namespace Xrm.Sdk.PluginRegistration.Forms
                 // Fall back to normal filtering on any unexpected error
             }
 
-            searchThread?.Abort();
-            searchThread = new Thread(DisplayAttributes);
-            searchThread.Start();
+            // Restart debounce timer to refresh view on idle
+            try
+            {
+                m_filterTimer.Stop();
+                m_filterTimer.Start();
+            }
+            catch
+            {
+                // ignore timer errors and fallback to immediate display
+                DisplayAttributes();
+            }
+        }
+
+        private void AttributeSelectionForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                m_filterTimer?.Stop();
+                m_filterTimer?.Dispose();
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         private bool TrySelectAttributesFromPaste(string text)
