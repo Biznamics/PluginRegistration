@@ -317,7 +317,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpSecureConfiguration.Controls.Add(this.picAccessDenied);
             this.grpSecureConfiguration.Controls.Add(this.txtSecureConfig);
             this.grpSecureConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpSecureConfiguration.Location = new System.Drawing.Point(3, 288);
+            this.grpSecureConfiguration.Location = new System.Drawing.Point(3, 225);
             this.grpSecureConfiguration.Name = "grpSecureConfiguration";
             this.grpSecureConfiguration.Size = new System.Drawing.Size(427, 168);
             this.grpSecureConfiguration.TabIndex = 9;
@@ -570,7 +570,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             this.grpUnsecureConfig.Controls.Add(this.txtUnsecureConfiguration);
             this.grpUnsecureConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpUnsecureConfig.Location = new System.Drawing.Point(3, 155);
+            this.grpUnsecureConfig.Location = new System.Drawing.Point(3, 92);
             this.grpUnsecureConfig.Name = "grpUnsecureConfig";
             this.grpUnsecureConfig.Size = new System.Drawing.Size(427, 127);
             this.grpUnsecureConfig.TabIndex = 8;
@@ -648,7 +648,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpDescription.Location = new System.Drawing.Point(3, 3);
             this.grpDescription.Name = "grpDescription";
-            this.grpDescription.Size = new System.Drawing.Size(427, 146);
+            this.grpDescription.Size = new System.Drawing.Size(427, 83);
             this.grpDescription.TabIndex = 6;
             this.grpDescription.TabStop = false;
             this.grpDescription.Text = "Description";
@@ -681,9 +681,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.tlpRightColumn.Location = new System.Drawing.Point(466, 10);
             this.tlpRightColumn.Name = "tlpRightColumn";
             this.tlpRightColumn.RowCount = 3;
-            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22F));
-            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34F));
-            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44F));
+            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 89F));
+            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43F));
+            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57F));
             this.tlpRightColumn.Size = new System.Drawing.Size(439, 398);
             this.tlpRightColumn.TabIndex = 6;
             //
