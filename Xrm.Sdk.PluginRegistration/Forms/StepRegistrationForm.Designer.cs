@@ -1,4 +1,4 @@
-namespace Xrm.Sdk.PluginRegistration.Forms
+﻿namespace Xrm.Sdk.PluginRegistration.Forms
 {
     partial class StepRegistrationForm
     {        
@@ -77,6 +77,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.chkDeleteAsyncOperationIfSuccessful = new System.Windows.Forms.CheckBox();
             this.grpDescription = new System.Windows.Forms.GroupBox();
             this.txtDescription = new System.Windows.Forms.RichTextBox();
+            this.tlpRightColumn = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlLeftColumn = new System.Windows.Forms.Panel();
             this.grpGeneral.SuspendLayout();
             this.grpSecureConfiguration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picInvalidSecureConfigurationId)).BeginInit();
@@ -87,6 +90,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpUnsecureConfig.SuspendLayout();
             this.grpStage.SuspendLayout();
             this.grpDescription.SuspendLayout();
+            this.tlpRightColumn.SuspendLayout();
+            this.tlpMain.SuspendLayout();
+            this.pnlLeftColumn.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpGeneral
@@ -108,7 +114,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpGeneral.Controls.Add(this.lblMessageName);
             this.grpGeneral.Controls.Add(this.cmbWebhook);
             this.grpGeneral.Controls.Add(this.cmbPlugins);
-            this.grpGeneral.Location = new System.Drawing.Point(12, 12);
+            this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpGeneral.Location = new System.Drawing.Point(0, 2);
             this.grpGeneral.Name = "grpGeneral";
             this.grpGeneral.Size = new System.Drawing.Size(451, 229);
             this.grpGeneral.TabIndex = 0;
@@ -308,17 +316,16 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             // grpSecureConfiguration
             // 
-            this.grpSecureConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSecureConfiguration.Controls.Add(this.lnkInvalidSecureConfigurationId);
             this.grpSecureConfiguration.Controls.Add(this.lblInvalidSecureConfigurationId);
             this.grpSecureConfiguration.Controls.Add(this.picInvalidSecureConfigurationId);
             this.grpSecureConfiguration.Controls.Add(this.lblAccessDenied);
             this.grpSecureConfiguration.Controls.Add(this.picAccessDenied);
             this.grpSecureConfiguration.Controls.Add(this.txtSecureConfig);
-            this.grpSecureConfiguration.Location = new System.Drawing.Point(469, 238);
+            this.grpSecureConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpSecureConfiguration.Location = new System.Drawing.Point(3, 225);
             this.grpSecureConfiguration.Name = "grpSecureConfiguration";
-            this.grpSecureConfiguration.Size = new System.Drawing.Size(433, 170);
+            this.grpSecureConfiguration.Size = new System.Drawing.Size(427, 168);
             this.grpSecureConfiguration.TabIndex = 9;
             this.grpSecureConfiguration.TabStop = false;
             this.grpSecureConfiguration.Text = "Secure Configuration";
@@ -403,7 +410,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             this.grpMode.Controls.Add(this.radModeSync);
             this.grpMode.Controls.Add(this.radModeAsync);
-            this.grpMode.Location = new System.Drawing.Point(218, 247);
+            this.grpMode.Location = new System.Drawing.Point(206, 237);
             this.grpMode.Name = "grpMode";
             this.grpMode.Size = new System.Drawing.Size(102, 65);
             this.grpMode.TabIndex = 3;
@@ -441,7 +448,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             this.grpDeployment.Controls.Add(this.chkDeploymentOffline);
             this.grpDeployment.Controls.Add(this.chkDeploymentServer);
-            this.grpDeployment.Location = new System.Drawing.Point(326, 247);
+            this.grpDeployment.Location = new System.Drawing.Point(314, 237);
             this.grpDeployment.Name = "grpDeployment";
             this.grpDeployment.Size = new System.Drawing.Size(88, 65);
             this.grpDeployment.TabIndex = 4;
@@ -478,7 +485,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             this.grpInvocation.Controls.Add(this.radInvocationChild);
             this.grpInvocation.Controls.Add(this.radInvocationParent);
-            this.grpInvocation.Location = new System.Drawing.Point(218, 316);
+            this.grpInvocation.Location = new System.Drawing.Point(206, 306);
             this.grpInvocation.Name = "grpInvocation";
             this.grpInvocation.Size = new System.Drawing.Size(196, 65);
             this.grpInvocation.TabIndex = 5;
@@ -556,7 +563,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radStagePostOperationDeprecated.AutoSize = true;
             this.radStagePostOperationDeprecated.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radStagePostOperationDeprecated.Location = new System.Drawing.Point(18, 358);
+            this.radStagePostOperationDeprecated.Location = new System.Drawing.Point(6, 348);
             this.radStagePostOperationDeprecated.Name = "radStagePostOperationDeprecated";
             this.radStagePostOperationDeprecated.Size = new System.Drawing.Size(156, 17);
             this.radStagePostOperationDeprecated.TabIndex = 3;
@@ -567,11 +574,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             // grpUnsecureConfig
             // 
-            this.grpUnsecureConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.grpUnsecureConfig.Controls.Add(this.txtUnsecureConfiguration);
-            this.grpUnsecureConfig.Location = new System.Drawing.Point(469, 103);
+            this.grpUnsecureConfig.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpUnsecureConfig.Location = new System.Drawing.Point(3, 92);
             this.grpUnsecureConfig.Name = "grpUnsecureConfig";
-            this.grpUnsecureConfig.Size = new System.Drawing.Size(433, 129);
+            this.grpUnsecureConfig.Size = new System.Drawing.Size(427, 127);
             this.grpUnsecureConfig.TabIndex = 8;
             this.grpUnsecureConfig.TabStop = false;
             this.grpUnsecureConfig.Text = "Unsecure Configuration";
@@ -624,7 +631,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpStage.Controls.Add(this.radStagePostOperation);
             this.grpStage.Controls.Add(this.radStagePreOperation);
             this.grpStage.Controls.Add(this.radStagePreValidation);
-            this.grpStage.Location = new System.Drawing.Point(12, 247);
+            this.grpStage.Location = new System.Drawing.Point(0, 237);
             this.grpStage.Name = "grpStage";
             this.grpStage.Size = new System.Drawing.Size(200, 92);
             this.grpStage.TabIndex = 2;
@@ -634,7 +641,7 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // chkDeleteAsyncOperationIfSuccessful
             // 
             this.chkDeleteAsyncOperationIfSuccessful.Enabled = false;
-            this.chkDeleteAsyncOperationIfSuccessful.Location = new System.Drawing.Point(12, 392);
+            this.chkDeleteAsyncOperationIfSuccessful.Location = new System.Drawing.Point(0, 382);
             this.chkDeleteAsyncOperationIfSuccessful.Name = "chkDeleteAsyncOperationIfSuccessful";
             this.chkDeleteAsyncOperationIfSuccessful.Size = new System.Drawing.Size(402, 16);
             this.chkDeleteAsyncOperationIfSuccessful.TabIndex = 5;
@@ -643,12 +650,11 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             // 
             // grpDescription
             // 
-            this.grpDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDescription.Controls.Add(this.txtDescription);
-            this.grpDescription.Location = new System.Drawing.Point(469, 13);
+            this.grpDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpDescription.Location = new System.Drawing.Point(3, 3);
             this.grpDescription.Name = "grpDescription";
-            this.grpDescription.Size = new System.Drawing.Size(433, 83);
+            this.grpDescription.Size = new System.Drawing.Size(427, 83);
             this.grpDescription.TabIndex = 6;
             this.grpDescription.TabStop = false;
             this.grpDescription.Text = "Description";
@@ -667,26 +673,68 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.txtDescription.Text = "";
             this.txtDescription.Enter += new System.EventHandler(this.longText_Enter);
             this.txtDescription.Leave += new System.EventHandler(this.longText_Leave);
-            // 
+            //
+            // tlpRightColumn
+            //
+            this.tlpRightColumn.ColumnCount = 1;
+            this.tlpRightColumn.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpRightColumn.Controls.Add(this.grpDescription, 0, 0);
+            this.tlpRightColumn.Controls.Add(this.grpUnsecureConfig, 0, 1);
+            this.tlpRightColumn.Controls.Add(this.grpSecureConfiguration, 0, 2);
+            this.tlpRightColumn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpRightColumn.Location = new System.Drawing.Point(457, 0);
+            this.tlpRightColumn.Margin = new System.Windows.Forms.Padding(0);
+            this.tlpRightColumn.Name = "tlpRightColumn";
+            this.tlpRightColumn.RowCount = 3;
+            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 89F));
+            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43F));
+            this.tlpRightColumn.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57F));
+            this.tlpRightColumn.Size = new System.Drawing.Size(439, 398);
+            this.tlpRightColumn.TabIndex = 6;
+            //
+            // pnlLeftColumn
+            //
+            this.pnlLeftColumn.Controls.Add(this.grpGeneral);
+            this.pnlLeftColumn.Controls.Add(this.grpStage);
+            this.pnlLeftColumn.Controls.Add(this.grpMode);
+            this.pnlLeftColumn.Controls.Add(this.grpDeployment);
+            this.pnlLeftColumn.Controls.Add(this.grpInvocation);
+            this.pnlLeftColumn.Controls.Add(this.radStagePostOperationDeprecated);
+            this.pnlLeftColumn.Controls.Add(this.chkDeleteAsyncOperationIfSuccessful);
+            this.pnlLeftColumn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLeftColumn.Location = new System.Drawing.Point(3, 0);
+            this.pnlLeftColumn.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.pnlLeftColumn.Name = "pnlLeftColumn";
+            this.pnlLeftColumn.Size = new System.Drawing.Size(451, 398);
+            this.pnlLeftColumn.TabIndex = 0;
+            //
+            // tlpMain
+            //
+            this.tlpMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpMain.ColumnCount = 2;
+            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.1F));
+            this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.9F));
+            this.tlpMain.Controls.Add(this.pnlLeftColumn, 0, 0);
+            this.tlpMain.Controls.Add(this.tlpRightColumn, 1, 0);
+            this.tlpMain.Location = new System.Drawing.Point(9, 10);
+            this.tlpMain.Name = "tlpMain";
+            this.tlpMain.RowCount = 1;
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpMain.Size = new System.Drawing.Size(896, 398);
+            this.tlpMain.TabIndex = 0;
+            //
             // StepRegistrationForm
-            // 
+            //
             this.AcceptButton = this.btnRegister;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(907, 445);
-            this.Controls.Add(this.grpDescription);
-            this.Controls.Add(this.chkDeleteAsyncOperationIfSuccessful);
-            this.Controls.Add(this.radStagePostOperationDeprecated);
-            this.Controls.Add(this.grpUnsecureConfig);
+            this.Controls.Add(this.tlpMain);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.grpDeployment);
             this.Controls.Add(this.btnRegister);
-            this.Controls.Add(this.grpInvocation);
-            this.Controls.Add(this.grpStage);
-            this.Controls.Add(this.grpMode);
-            this.Controls.Add(this.grpSecureConfiguration);
-            this.Controls.Add(this.grpGeneral);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(921, 478);
             this.Name = "StepRegistrationForm";
@@ -711,6 +759,9 @@ namespace Xrm.Sdk.PluginRegistration.Forms
             this.grpStage.ResumeLayout(false);
             this.grpStage.PerformLayout();
             this.grpDescription.ResumeLayout(false);
+            this.tlpRightColumn.ResumeLayout(false);
+            this.pnlLeftColumn.ResumeLayout(false);
+            this.tlpMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,5 +817,8 @@ namespace Xrm.Sdk.PluginRegistration.Forms
         private System.Windows.Forms.PictureBox picInvalidSecureConfigurationId;
         private System.Windows.Forms.ComboBox cmbServiceEndpoint;
         private System.Windows.Forms.ComboBox cmbWebhook;
+        private System.Windows.Forms.TableLayoutPanel tlpRightColumn;
+        private System.Windows.Forms.TableLayoutPanel tlpMain;
+        private System.Windows.Forms.Panel pnlLeftColumn;
     }
 }
